@@ -57,8 +57,15 @@ export function uuid(): string {
 
 export function track(event: string, params: Record<string, unknown> = {}): void {
   if (typeof window === 'undefined') return;
+  const enriched = { ...getAttribution(), ...params };
+  // 1) dataLayer (GTM roteia p/ Ads/Meta quando configurado)
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...getAttribution(), ...params });
+  window.dataLayer.push({ event, ...enriched });
+  // 2) GA4 direto via gtag — garante que o evento (generate_lead etc.) chega ao GA4
+  //    mesmo sem tag configurada no GTM. (Se um dia rotear via GTM, remover p/ não duplicar.)
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', event, enriched);
+  }
 }
 
 /** _ga client_id — para reconciliar a venda no webhook server-side */
