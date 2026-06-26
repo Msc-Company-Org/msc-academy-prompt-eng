@@ -138,17 +138,18 @@ export function initPage(): void {
     btn.addEventListener('click', (ev) => { ev.preventDefault(); goToCheckout(); });
   });
 
-  // ---- VSL (video nativo): start + marcos 25/50/75/90 ----
-  const video = document.querySelector<HTMLVideoElement>('[data-vsl]');
-  if (video) {
-    const fired = new Set<number>();
-    video.addEventListener('play', () => track('video_start', { content_type: 'vsl', video_title: 'VSL Prompt Profissional', engagement: 'play' }), { once: false });
-    video.addEventListener('timeupdate', () => {
-      if (!video.duration) return;
-      const pct = Math.floor((video.currentTime / video.duration) * 100);
-      [25, 50, 75, 90].forEach((m) => {
-        if (pct >= m && !fired.has(m)) { fired.add(m); track('video_progress', { content_type: 'vsl', video_percent: m }); }
-      });
+  // ---- TSL: profundidade de leitura (scroll) + barra de progresso ----
+  const bar = document.getElementById('read-progress');
+  const fired = new Set<number>();
+  const onScroll = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0;
+    if (bar) bar.style.width = pct + '%';
+    [25, 50, 75, 90].forEach((m) => {
+      if (pct >= m && !fired.has(m)) { fired.add(m); track('scroll_depth', { content_type: 'tsl', percent: m }); }
     });
-  }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }

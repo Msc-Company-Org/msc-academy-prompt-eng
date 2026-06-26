@@ -1,51 +1,95 @@
 @import "tailwindcss";
 
-/* ---- Tema MSC Academy (dark premium, ação em verde) ---- */
+/* ===== MSC Academy — Editorial Premium (claro) ===== */
 @theme {
-  --color-ink-950: #08090c;
-  --color-ink-900: #0c0e13;
-  --color-ink-800: #141821;
-  --color-ink-700: #1c2230;
-  --color-brand-300: #6ee7b7;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-accent-400: #fbbf24;
+  --color-sand: #F5F1EA;        /* fundo dominante (~60%) */
+  --color-sand-dark: #EBE4D8;   /* cards / faixas alternadas */
+  --color-ink: #1B1714;         /* texto e estrutura (~30%) */
+  --color-indigo: #4338CA;      /* destaque editorial (~7%) */
+  --color-indigo-deep: #3730A3; /* hover de link */
+  --color-amber: #F59E0B;       /* CTA / ação (~3%) — EXCLUSIVO de botões */
+  --color-amber-deep: #D97706;  /* hover do CTA */
+  --color-sage: #5B8266;        /* apoio / confiança */
+
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--color-ink-950);
-  color: #e5e7eb;
+  background-color: var(--color-sand);
+  color: var(--color-ink);
 }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* textura de papel sutil */
+  background-color: var(--color-sand);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
-/* brilho suave de fundo */
-.bg-glow {
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(16, 185, 129, 0.16) 0%, transparent 70%),
-    radial-gradient(40% 40% at 85% 20%, rgba(251, 191, 36, 0.08) 0%, transparent 70%);
+h1, h2, h3, .font-display { font-family: var(--font-display); }
+
+/* Eyebrow editorial */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-indigo);
 }
 
-.gradient-text {
-  background: linear-gradient(90deg, var(--color-brand-300), var(--color-brand-500));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Número de seção tipo revista */
+.section-no {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-indigo);
+  opacity: 0.85;
+  line-height: 1;
 }
 
-/* CTA pulsante (sutil) */
-@keyframes pulse-cta {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
-  50% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+/* CTA Âmbar (botão de compra) */
+.btn-amber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-amber);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(27,23,20,.08), 0 8px 24px rgba(245,158,11,.18);
+  transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
 }
-.cta-pulse { animation: pulse-cta 2.4s infinite; }
+.btn-amber:hover { background: var(--color-amber-deep); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(27,23,20,.10), 0 12px 30px rgba(245,158,11,.22); }
+.btn-amber:active { transform: translateY(0); }
+.btn-amber:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-indigo) 45%, transparent); outline-offset: 2px; }
+.btn-amber .arrow { transition: transform .2s ease; }
+.btn-amber:hover .arrow { transform: translateX(4px); }
+
+/* Botão secundário ghost */
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+  color: var(--color-ink); border-radius: 10px; padding: .75rem 1.25rem; font-weight: 600;
+}
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-ink) 4%, transparent); }
+
+/* selo GRAVAÇÃO REAL */
+.seal-real {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--color-sage);
+  border: 1px solid color-mix(in srgb, var(--color-sage) 40%, transparent);
+  background: color-mix(in srgb, var(--color-sage) 8%, transparent);
+  padding: .2rem .5rem; border-radius: 999px;
+}
 
 /* reveal on scroll */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
@@ -53,6 +97,6 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .cta-pulse { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .btn-amber, .btn-amber .arrow { transition: none; }
 }

@@ -1,50 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
-const desc = 'Baixe grátis o Kit Prompt Engineering MSC: 30 prompts-modelo por profissão + a régua C.L.A.R.O. + mini-aula de 12 min. O método que eu uso nos meus sistemas de IA em produção.';
+const desc = 'Baixe grátis o Kit Prompt Engineering MSC: 30 prompts-modelo por profissão + a régua C.L.A.R.O. + mini-aula. O método que eu uso nos meus sistemas de IA em produção.';
 ---
 <Base title="Kit Prompt Engineering MSC (grátis) — 30 prompts + a régua C.L.A.R.O." description={desc} canonical="https://academy.msccompany.com.br/isca">
-  <section class="bg-glow">
-    <div class="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 md:grid-cols-2">
-      <div>
-        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-brand-400">Material gratuito</p>
-        <h1 class="text-balance text-3xl font-black leading-tight sm:text-4xl">
-          30 prompts que <span class="gradient-text">entregam</span> na 1ª tentativa — + a régua que eu uso nos meus sistemas de IA
-        </h1>
-        <p class="mt-4 text-lg text-zinc-300">Baixe o <strong>Kit Prompt Engineering MSC</strong>: 30 prompts-modelo organizados por profissão, a <strong>régua C.L.A.R.O.</strong> (1 página) e uma mini-aula de 12 min onde eu transformo um prompt ruim num que entrega — ao vivo.</p>
-        <ul class="mt-6 space-y-2 text-zinc-300">
-          <li>✅ 30 prompts prontos pra copiar, colar e adaptar</li>
-          <li>✅ A régua C.L.A.R.O. — o método por trás de todo prompt profissional</li>
-          <li>✅ Mini-aula real (sem teoria de blog gringo)</li>
-        </ul>
-      </div>
+  <section class="mx-auto grid max-w-5xl items-center gap-10 px-5 py-16 md:grid-cols-2 sm:py-20">
+    <div>
+      <p class="eyebrow mb-3">Material gratuito</p>
+      <h1 class="text-3xl font-extrabold leading-tight tracking-tight text-balance sm:text-5xl">
+        30 prompts que <span class="text-indigo">entregam</span> na 1ª tentativa — e a régua que eu uso nos meus sistemas
+      </h1>
+      <p class="mt-5 text-lg text-ink/80">Baixe o <strong class="text-ink">Kit Prompt Engineering MSC</strong>: 30 prompts-modelo organizados por profissão, a <strong class="text-ink">régua C.L.A.R.O.</strong> (1 página) e uma mini-aula onde eu transformo um prompt ruim num que entrega.</p>
+      <ul class="mt-6 space-y-2.5 text-ink/85">
+        <li class="text-sage">✓ <span class="text-ink/85">30 prompts prontos pra copiar, colar e adaptar</span></li>
+        <li class="text-sage">✓ <span class="text-ink/85">A régua C.L.A.R.O. — o método por trás de todo prompt profissional</span></li>
+        <li class="text-sage">✓ <span class="text-ink/85">Mini-aula real (sem teoria de blog gringo)</span></li>
+      </ul>
+    </div>
 
-      <div class="rounded-2xl border border-white/10 bg-ink-800/60 p-6 shadow-2xl shadow-black/40">
-        <h2 class="text-lg font-bold text-zinc-100">Receba agora, de graça</h2>
-        <form id="optin" class="mt-4 space-y-3">
-          <input name="name" type="text" autocomplete="name" placeholder="Seu nome" required
-            class="w-full rounded-lg border border-white/10 bg-ink-900 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 focus:border-brand-500 focus:outline-none" />
-          <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" required
-            class="w-full rounded-lg border border-white/10 bg-ink-900 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 focus:border-brand-500 focus:outline-none" />
-          <input name="phone" type="tel" autocomplete="tel" placeholder="WhatsApp (com DDD)" required
-            class="w-full rounded-lg border border-white/10 bg-ink-900 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 focus:border-brand-500 focus:outline-none" />
-          <select name="profissao" required
-            class="w-full rounded-lg border border-white/10 bg-ink-900 px-4 py-3 text-zinc-300 focus:border-brand-500 focus:outline-none">
-            <option value="">Sua área…</option>
-            <option>Vendas / Comercial</option>
-            <option>Atendimento / Suporte</option>
-            <option>Conteúdo / Social Media</option>
-            <option>Escritório / Administrativo</option>
-            <option>Freelancer / Serviços</option>
-            <option>Estudo / Concurso / Carreira</option>
-            <option>Outra</option>
-          </select>
-          <button type="submit" class="w-full rounded-xl bg-brand-500 py-3.5 font-extrabold text-ink-950 transition hover:bg-brand-400">
-            QUERO O KIT GRÁTIS →
-          </button>
-          <p id="optin-msg" class="hidden text-center text-sm"></p>
-          <p class="text-center text-xs text-zinc-500">Sem spam. Você pode sair quando quiser.</p>
-        </form>
-      </div>
+    <div class="rounded-2xl border border-ink/12 bg-sand-dark p-6 shadow-sm">
+      <h2 class="font-display text-xl font-semibold text-ink">Receba agora, de graça</h2>
+      <form id="optin" class="mt-4 space-y-3">
+        <input name="name" type="text" autocomplete="name" placeholder="Seu nome" required
+          class="w-full rounded-lg border border-ink/15 bg-sand px-4 py-3 text-ink placeholder:text-ink/40 focus:border-indigo focus:outline-none" />
+        <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" required
+          class="w-full rounded-lg border border-ink/15 bg-sand px-4 py-3 text-ink placeholder:text-ink/40 focus:border-indigo focus:outline-none" />
+        <input name="phone" type="tel" autocomplete="tel" placeholder="WhatsApp (com DDD)" required
+          class="w-full rounded-lg border border-ink/15 bg-sand px-4 py-3 text-ink placeholder:text-ink/40 focus:border-indigo focus:outline-none" />
+        <select name="profissao" required
+          class="w-full rounded-lg border border-ink/15 bg-sand px-4 py-3 text-ink/80 focus:border-indigo focus:outline-none">
+          <option value="">Sua área…</option>
+          <option>Vendas / Comercial</option>
+          <option>Atendimento / Suporte</option>
+          <option>Conteúdo / Social Media</option>
+          <option>Escritório / Administrativo</option>
+          <option>Freelancer / Serviços</option>
+          <option>Estudo / Concurso / Carreira</option>
+          <option>Outra</option>
+        </select>
+        <button type="submit" class="btn-amber w-full">QUERO O KIT GRÁTIS <span class="arrow">→</span></button>
+        <p id="optin-msg" class="hidden text-center text-sm"></p>
+        <p class="text-center text-xs text-ink/50">Sem spam. Você pode sair quando quiser.</p>
+      </form>
     </div>
   </section>
 
@@ -70,7 +66,7 @@ const desc = 'Baixe grátis o Kit Prompt Engineering MSC: 30 prompts-modelo por 
         await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       } catch { /* segue mesmo se a API falhar */ }
       track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'isca', form_id: 'optin_isca', method: 'email', event_id });
-      if (msg) { msg.textContent = 'Pronto! Enviamos o kit pro seu e-mail e WhatsApp. 🎉'; msg.classList.remove('hidden'); msg.classList.add('text-brand-400'); }
+      if (msg) { msg.textContent = 'Pronto! Enviamos o kit pro seu e-mail e WhatsApp. 🎉'; msg.classList.remove('hidden'); msg.classList.add('text-sage'); }
       setTimeout(() => { location.href = '/?utm_source=isca&utm_medium=optin'; }, 1400);
     });
   </script>

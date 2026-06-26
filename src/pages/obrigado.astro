@@ -2,19 +2,16 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Obrigado! — MSC Academy" noindex={true} canonical="https://academy.msccompany.com.br/obrigado">
-  <section class="bg-glow">
-    <div class="mx-auto grid min-h-[70vh] max-w-xl place-items-center px-4 text-center">
-      <div>
-        <div class="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-brand-500/15 text-3xl">✅</div>
-        <h1 class="text-3xl font-black sm:text-4xl">Compra confirmada. Bem-vindo!</h1>
-        <p class="mt-4 text-lg text-zinc-300">Seu acesso ao <strong>Prompt Profissional</strong> foi liberado. Verifique seu e-mail e WhatsApp — enviamos o link da área de membros.</p>
-        <p class="mt-2 text-sm text-zinc-400">Não chegou em 5 min? Olhe o spam ou fale com a gente.</p>
-        <a href="/" class="mt-8 inline-block rounded-xl border border-white/15 px-6 py-3 font-semibold text-zinc-200 hover:bg-white/5">Voltar ao início</a>
-      </div>
+  <section class="mx-auto grid min-h-[70vh] max-w-xl place-items-center px-5 text-center">
+    <div>
+      <svg viewBox="0 0 24 24" class="mx-auto h-14 w-14 text-sage" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+      <h1 class="mt-5 font-display text-3xl font-extrabold sm:text-4xl">Compra confirmada. Bem-vindo!</h1>
+      <p class="mt-4 text-lg text-ink/80">Seu acesso ao <strong class="text-ink">Arsenal de IA</strong> foi liberado. Verifique seu e-mail e WhatsApp — enviamos o link da área de membros.</p>
+      <p class="mt-2 text-sm text-ink/55">Não chegou em 5 min? Olhe o spam ou fale com a gente.</p>
+      <a href="/" class="btn-ghost mt-8">Voltar ao início</a>
     </div>
   </section>
 
-  <!-- purchase best-effort (deduplicado pelo webhook via transaction_id) -->
   <script>
     import { track } from '../lib/tracking';
     const sp = new URLSearchParams(location.search);

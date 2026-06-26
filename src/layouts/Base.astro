@@ -9,8 +9,8 @@ export interface Props {
 }
 
 const {
-  title = 'Prompt Profissional — Aprenda a mandar na IA | MSC Academy',
-  description = 'O método de prompt que eu uso pra rodar agentes de IA que atendem e vendem de verdade — destilado num curso de R$97 que você aplica hoje. Acesso vitalício. Garantia de 7 dias.',
+  title = 'Arsenal de IA — templates, skills e superpowers que eu rodo em produção | MSC Academy',
+  description = 'O arsenal de IA que eu uso em produção: templates, fluxos, hooks e superpowers, do básico ao avançado, + o Método P.R.O.© pra adaptar tudo. R$97, acesso vitalício, garantia de 7 dias.',
   canonical = 'https://academy.msccompany.com.br/',
   noindex = false,
 } = Astro.props;
@@ -39,10 +39,10 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
     <meta property="og:image" content="/og.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Fonts -->
+    <!-- Fonts: Fraunces (display serifado, editorial) + Inter (texto/UI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- 1) Consent Mode v2 default = denied (roda ANTES de qualquer tag) -->
     <script is:inline>
@@ -78,19 +78,19 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
       <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${FB_PIXEL_ID}');fbq('track','PageView');`} />
     )}
 
-    <!-- Schema.org: Course + FAQ (AEO — para ser citado por IA) -->
+    <!-- Schema.org: Product + FAQ (AEO — para ser citado por IA) -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'Course',
-      name: 'Prompt Profissional — Mandando na IA',
-      description: 'Curso de engenharia de prompt (prompt engineering) ensinado por quem opera agentes de IA em produção. Método para extrair resultado profissional de qualquer IA, sem programar.',
-      provider: { '@type': 'Organization', name: 'MSC Academy', sameAs: 'https://msccompany.com.br' },
+      '@type': 'Product',
+      name: 'Arsenal de IA — MSC Academy',
+      description: 'Biblioteca de assets de IA prontos (templates, fluxos, hooks e superpowers) testados em produção, organizados do básico ao avançado, com o Método P.R.O.© para adaptar e criar os seus. Sem programar.',
+      brand: { '@type': 'Organization', name: 'MSC Academy', sameAs: 'https://msccompany.com.br' },
+      category: 'Digital product / AI toolkit',
       inLanguage: 'pt-BR',
-      offers: { '@type': 'Offer', price: '97.00', priceCurrency: 'BRL', category: 'Paid', availability: 'https://schema.org/InStock' },
-      hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT3H' },
+      offers: { '@type': 'Offer', price: '97.00', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', url: 'https://academy.msccompany.com.br/' },
     })} />
   </head>
-  <body class="bg-ink-950 text-zinc-200 antialiased">
+  <body class="bg-sand text-ink antialiased">
     {GTM_ID && (
       <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />
     )}
@@ -98,15 +98,15 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
     <slot />
 
     <!-- Banner de consentimento (LGPD) -->
-    <div id="consent-banner" class="hidden fixed bottom-0 inset-x-0 z-50 p-4 sm:p-5 bg-ink-800/95 backdrop-blur border-t border-white/10">
-      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-sm text-zinc-300">
+    <div id="consent-banner" class="hidden fixed bottom-0 inset-x-0 z-50 p-4 sm:p-5 bg-sand-dark/97 backdrop-blur border-t border-ink/12">
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-sm text-ink/80">
         <p class="flex-1">
           Usamos cookies para medir e melhorar sua experiência. Veja a
-          <a href="/privacidade" class="underline text-brand-400">Política de Privacidade</a>.
+          <a href="/privacidade" class="underline text-indigo">Política de Privacidade</a>.
         </p>
         <div class="flex gap-2 shrink-0">
-          <button id="consent-decline" class="px-4 py-2 rounded-lg border border-white/15 text-zinc-300 hover:bg-white/5">Recusar</button>
-          <button id="consent-accept" class="px-4 py-2 rounded-lg bg-brand-500 text-ink-950 font-semibold hover:bg-brand-400">Aceitar</button>
+          <button id="consent-decline" class="px-4 py-2 rounded-lg border border-ink/15 text-ink hover:bg-ink/5">Recusar</button>
+          <button id="consent-accept" class="px-4 py-2 rounded-lg bg-ink text-sand font-semibold hover:bg-ink/90">Aceitar</button>
         </div>
       </div>
     </div>
