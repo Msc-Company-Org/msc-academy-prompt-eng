@@ -1,0 +1,119 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'Prompt Profissional — Aprenda a mandar na IA | MSC Academy',
+  description = 'O método de prompt que eu uso pra rodar agentes de IA que atendem e vendem de verdade — destilado num curso de R$97 que você aplica hoje. Acesso vitalício. Garantia de 7 dias.',
+  canonical = 'https://academy.msccompany.com.br/',
+  noindex = false,
+} = Astro.props;
+
+// Container real do Moisés como padrão (sobrescrevível por env PUBLIC_GTM_ID no Vercel)
+const GTM_ID = import.meta.env.PUBLIC_GTM_ID || 'GTM-P4P7R35C';
+const FB_PIXEL_ID = import.meta.env.PUBLIC_FB_PIXEL_ID || '';
+const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- 1) Consent Mode v2 default = denied (roda ANTES de qualquer tag) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500,
+      });
+    </script>
+
+    <!-- 2) Google Tag Manager (gerencia GA4 + Ads + Meta lá dentro) -->
+    {GTM_ID && (
+      <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`} />
+    )}
+
+    <!-- 2b) GA4 direto (fallback caso não use GTM) -->
+    {GA_ID && !GTM_ID && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+        <script is:inline set:html={`window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', '${GA_ID}');`} />
+      </>
+    )}
+
+    <!-- 2c) Meta Pixel base (eventos só após consentimento, disparados via dataLayer/GTM) -->
+    {FB_PIXEL_ID && (
+      <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${FB_PIXEL_ID}');fbq('track','PageView');`} />
+    )}
+
+    <!-- Schema.org: Course + FAQ (AEO — para ser citado por IA) -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: 'Prompt Profissional — Mandando na IA',
+      description: 'Curso de engenharia de prompt (prompt engineering) ensinado por quem opera agentes de IA em produção. Método para extrair resultado profissional de qualquer IA, sem programar.',
+      provider: { '@type': 'Organization', name: 'MSC Academy', sameAs: 'https://msccompany.com.br' },
+      inLanguage: 'pt-BR',
+      offers: { '@type': 'Offer', price: '97.00', priceCurrency: 'BRL', category: 'Paid', availability: 'https://schema.org/InStock' },
+      hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT3H' },
+    })} />
+  </head>
+  <body class="bg-ink-950 text-zinc-200 antialiased">
+    {GTM_ID && (
+      <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />
+    )}
+
+    <slot />
+
+    <!-- Banner de consentimento (LGPD) -->
+    <div id="consent-banner" class="hidden fixed bottom-0 inset-x-0 z-50 p-4 sm:p-5 bg-ink-800/95 backdrop-blur border-t border-white/10">
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-sm text-zinc-300">
+        <p class="flex-1">
+          Usamos cookies para medir e melhorar sua experiência. Veja a
+          <a href="/privacidade" class="underline text-brand-400">Política de Privacidade</a>.
+        </p>
+        <div class="flex gap-2 shrink-0">
+          <button id="consent-decline" class="px-4 py-2 rounded-lg border border-white/15 text-zinc-300 hover:bg-white/5">Recusar</button>
+          <button id="consent-accept" class="px-4 py-2 rounded-lg bg-brand-500 text-ink-950 font-semibold hover:bg-brand-400">Aceitar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      import { initPage } from '../lib/tracking';
+      initPage();
+    </script>
+  </body>
+</html>

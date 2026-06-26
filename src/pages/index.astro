@@ -1,0 +1,334 @@
+---
+import Base from '../layouts/Base.astro';
+
+const btnPrimary =
+  'cta-pulse inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-4 text-base sm:text-lg font-extrabold text-ink-950 shadow-lg shadow-brand-500/20 transition hover:bg-brand-400 hover:scale-[1.02] active:scale-100';
+const microcopy = 'mt-3 text-sm text-zinc-400';
+
+const modulos = [
+  ['Módulo 1 — Por que a IA te decepciona (e a virada de chave)', 'O erro de 1 linha que todo mundo comete. A diferença entre pedir favor e dar ordem. Você nunca mais vai olhar pra um chat do mesmo jeito.'],
+  ['Módulo 2 — A anatomia do prompt profissional', 'O esqueleto que funciona em qualquer modelo: papel, contexto, tarefa, formato e critérios. Com exemplos lado a lado (amador × profissional).'],
+  ['Módulo 3 — Refino em ciclos: de resposta ruim a excelente', 'Como conversar com a IA pra ela melhorar sozinha. Os comandos de correção que viram uma saída mediana em entregável de nível profissional.'],
+  ['Módulo 4 — Seus modelos de prompt reutilizáveis', 'Monte seu próprio arsenal pro SEU trabalho — texto, atendimento, estudo, código, pesquisa. Pare de começar do zero toda vez.'],
+  ['Módulo 5 — Prompt aplicado: casos reais', 'Eu resolvo, na sua frente, problemas de verdade com prompt — do texto de vendas ao raciocínio complexo. Você vê o método em ação.'],
+  ['Módulo 6 — Do prompt ao agente (o próximo degrau)', 'Como esse mesmo método vira um sistema que trabalha sozinho. A ponte da habilidade pessoal pra IA que você pode construir — e um dia vender.'],
+];
+
+const faq = [
+  ['Preciso saber programar?', 'Não. Nada. Se você sabe digitar uma mensagem, você consegue. O curso é sobre como falar com a IA, não sobre código.'],
+  ['Funciona com ChatGPT grátis, ou só na versão paga?', 'Funciona em qualquer modelo — ChatGPT (grátis ou pago), Gemini, Claude, o que você usar. O método é sobre estrutura de instrução, independe da ferramenta.'],
+  ['Quanto tempo leva pra concluir?', 'Dá pra assistir numa tarde e já aplicar no mesmo dia. É direto ao ponto de propósito — sem encheção de linguiça.'],
+  ['Esse conteúdo não vai ficar desatualizado rápido, com a IA mudando toda hora?', 'Essa é a sacada do método. Eu não ensino truque que expira na próxima atualização — ensino o raciocínio de como estruturar prompt, que continua valendo quando o modelo muda. E você recebe as atualizações de graça, pra sempre.'],
+  ['Não é só mais um "pack de prompts mágicos"?', 'Não, e essa é a diferença. Pack de prompt pronto você decora e ele morre quando o modelo atualiza. Aqui você aprende a criar o seu, pra qualquer situação. (Prompts prontos você ainda leva de bônus — mas o ouro é o método.)'],
+  ['Já está saturado, todo mundo fala de IA. Por que comprar com você?', 'Saturado de gente falando de IA. Eu não falo — eu opero. Tenho agentes de IA faturando no WhatsApp e modelos sob medida no ar agora. Você aprende a base com quem usa, não com quem só assistiu vídeo.'],
+  ['Como recebo o acesso? E o pagamento?', 'Pagamento pela Kiwify (Pix ou cartão, em até 12x). Assim que confirma, o acesso à área de membros é liberado na hora. É vitalício.'],
+  ['E se eu não gostar?', 'Garantia de 7 dias, incondicional. Pediu, devolvo 100%, sem perguntar o motivo. O risco é meu.'],
+  ['R$97 é o preço pra sempre?', 'Não. R$97 é o preço de entrada da primeira turma. Conforme eu adiciono conteúdo, o preço sobe pra quem entrar depois — quem entra agora trava o valor mais baixo e recebe tudo que vier sem pagar mais.'],
+  ['Esse curso me ensina a ganhar dinheiro com IA?', 'Sendo honesto: ele te ensina uma habilidade — mandar na IA via prompt. Essa habilidade é a base de coisas que dão dinheiro (entregar mais como freela, construir agentes, etc.), e eu mostro a ponte. Mas eu não vendo promessa de renda; vendo a competência concreta que vem antes de qualquer renda.'],
+];
+---
+<Base>
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-ink-950/80 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <a href="/" class="flex items-center gap-2 font-extrabold tracking-tight">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand-500 text-ink-950">A</span>
+        <span>MSC <span class="text-brand-400">Academy</span></span>
+      </a>
+      <button data-checkout class="hidden sm:inline-flex items-center rounded-lg bg-brand-500 px-4 py-2 text-sm font-bold text-ink-950 hover:bg-brand-400">
+        Quero por R$97 →
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO / VSL -->
+  <section class="bg-glow">
+    <div class="mx-auto max-w-4xl px-4 pt-12 pb-10 text-center sm:pt-16">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-brand-400">
+        Para quem usa IA todo dia e sente que está deixando 90% do potencial na mesa
+      </p>
+      <h1 class="text-balance text-3xl font-black leading-tight sm:text-5xl">
+        Pare de implorar pra ChatGPT. Aprenda a <span class="gradient-text">mandar</span> nele.
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-base text-zinc-300 sm:text-lg">
+        Em menos de uma tarde você aprende o sistema de prompts que transforma a IA de "estagiário confuso" em
+        ferramenta profissional — o mesmo alicerce que sustenta os agentes de WhatsApp e os modelos sob medida que eu
+        opero em produção. Sem programar. Acesso imediato e vitalício. Garantia de 7 dias.
+      </p>
+
+      <!-- Player da VSL -->
+      <div class="mx-auto mt-8 max-w-3xl">
+        <div class="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-ink-800 shadow-2xl shadow-black/40">
+          <!-- [SUBSTITUIR] Troque este placeholder pelo seu VSL real:
+               <video data-vsl controls playsinline poster="/vsl-poster.jpg" class="h-full w-full object-cover">
+                 <source src="/vsl.mp4" type="video/mp4" />
+               </video>
+               (o tracking de play/25/50/75/90% já engata em qualquer <video data-vsl>) -->
+          <div class="absolute inset-0 grid place-items-center text-center">
+            <div>
+              <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand-500 text-ink-950 shadow-lg cta-pulse">
+                <svg viewBox="0 0 24 24" class="h-7 w-7 translate-x-0.5 fill-current"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <p class="mt-4 text-sm text-zinc-400">▶ Seu VSL entra aqui — assista antes de decidir</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-sm text-zinc-400">
+        ✅ Acesso vitalício · ✅ Garantia incondicional de 7 dias · ✅ Pix ou cartão · ✅ Acesso imediato
+      </p>
+      <div class="mt-6">
+        <button data-checkout class={btnPrimary}>QUERO MANDAR NA IA POR R$97 →</button>
+        <p class={microcopy}>Acesso liberado na hora · Garantia de 7 dias · Pague no Pix ou em até 12x</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 1 — Abertura -->
+  <section class="mx-auto max-w-3xl px-4 py-14 reveal">
+    <h2 class="text-2xl font-bold sm:text-3xl">Você já sentiu isso:</h2>
+    <div class="mt-5 space-y-4 text-lg text-zinc-300">
+      <p>Abre a IA cheio de esperança. Pede uma coisa. E recebe de volta um texto morno, genérico, com cara de "qualquer um fez". Aí refaz na mão. De novo.</p>
+      <p>A conclusão fácil é "a IA é superestimada". Mas no fundo bate aquela pulga: <em class="text-zinc-100">e se for eu que não sei usar?</em></p>
+      <p>É exatamente isso. E a boa notícia é que isso conserta rápido.</p>
+      <p class="text-zinc-100">A diferença entre quem extrai resultado profissional da IA e quem recebe papa morna <strong>não é inteligência, nem ser técnico, nem ter a versão paga.</strong> É uma habilidade específica, que tem método e que se aprende numa tarde: <span class="text-brand-400 font-semibold">saber escrever o prompt certo.</span></p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2 — Agitação -->
+  <section class="border-y border-white/10 bg-ink-900/50">
+    <div class="mx-auto max-w-3xl px-4 py-14 reveal">
+      <h2 class="text-2xl font-bold sm:text-3xl">Enquanto você briga com a IA, três coisas acontecem em silêncio:</h2>
+      <ul class="mt-6 space-y-4">
+        <li class="rounded-xl border border-white/10 bg-ink-800/60 p-5">
+          <strong class="text-zinc-100">Você paga por uma Ferrari e dirige a 20 km/h.</strong>
+          <span class="text-zinc-300"> Assinatura de IA todo mês, usando uma fração ridícula do que ela entrega.</span>
+        </li>
+        <li class="rounded-xl border border-white/10 bg-ink-800/60 p-5">
+          <strong class="text-zinc-100">Você está virando substituível — pela pessoa errada.</strong>
+          <span class="text-zinc-300"> Não é a IA que vai te passar pra trás. É o colega, o concorrente, o freelancer do lado que aprendeu a mandar na IA antes de você.</span>
+        </li>
+        <li class="rounded-xl border border-white/10 bg-ink-800/60 p-5">
+          <strong class="text-zinc-100">Você acumula "dicas" que não viram resultado.</strong>
+          <span class="text-zinc-300"> 40 vídeos no YouTube, um caderno de "prompts mágicos" que param de funcionar quando o modelo atualiza, e zero método.</span>
+        </li>
+      </ul>
+      <p class="mt-6 text-lg text-zinc-300">O problema nunca foi falta de informação. <strong class="text-zinc-100">O que falta é sistema</strong> — um jeito de pensar a instrução que funciona pra qualquer tarefa, em qualquer modelo, hoje e daqui a dois anos. E isso não se acha solto no YouTube: se aprende com quem usa o sistema todo dia, pra valer.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3 — A virada (founder) -->
+  <section class="mx-auto max-w-3xl px-4 py-14 reveal">
+    <h2 class="text-2xl font-bold sm:text-3xl">Eu sou o Moisés. E eu não "estudo" IA — eu <span class="text-brand-400">opero</span> IA.</h2>
+    <div class="mt-5 space-y-4 text-lg text-zinc-300">
+      <p>Eu construo agentes que conversam com clientes no WhatsApp, atendem e vendem sozinhos. Eu treino modelos de linguagem sob medida. Eu coloco esses sistemas no ar e eles rodam de madrugada, no fim de semana, faturando, sem eu tocar.</p>
+      <p>E sabe o que está no coração de <strong class="text-zinc-100">tudo</strong> isso? A mesma coisa que você precisa pra parar de receber papa morna: <span class="text-brand-400 font-semibold">o prompt bem feito.</span></p>
+      <p>A instrução que comanda um agente de R$5.000 é prima da instrução que você pode aprender a escrever hoje por R$97. Mesmo alicerce. Eu peguei essa base e destilei no curso mais direto que consegui montar.</p>
+      <p class="rounded-xl border-l-4 border-brand-500 bg-ink-800/60 p-5 text-zinc-100">Você começa resolvendo o seu próprio dia com a IA. Mas sai com o tijolo de quem constrói IA pros outros.</p>
+    </div>
+    <div class="mt-8 text-center">
+      <button data-checkout class={btnPrimary}>SIM, QUERO APRENDER O MÉTODO →</button>
+      <p class={microcopy}>R$97 à vista ou 12x · acesso vitalício · garantia de 7 dias</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4 — O que é / o que NÃO é -->
+  <section class="border-y border-white/10 bg-ink-900/50">
+    <div class="mx-auto max-w-4xl px-4 py-14 reveal">
+      <h2 class="text-center text-2xl font-bold sm:text-3xl">O que este curso <span class="text-brand-400">é</span> — e o que <span class="text-zinc-400">não é</span></h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-brand-500/30 bg-brand-500/5 p-6">
+          <h3 class="mb-4 font-bold text-brand-300">✅ É</h3>
+          <ul class="space-y-3 text-zinc-300">
+            <li>Um <strong>método</strong> de estruturar prompt que funciona em qualquer IA</li>
+            <li>Direto ao ponto: assiste numa tarde, aplica no mesmo dia</li>
+            <li>Ensinado por quem <strong>opera</strong> IA em produção de verdade</li>
+            <li>Pra qualquer pessoa que usa IA — não precisa programar</li>
+            <li>A base que destrava desde texto até construir agentes</li>
+            <li>Atual: ensina raciocínio, não truque que expira</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-ink-800/50 p-6">
+          <h3 class="mb-4 font-bold text-zinc-400">❌ Não é</h3>
+          <ul class="space-y-3 text-zinc-400">
+            <li>Uma lista de "prompts mágicos" pra decorar</li>
+            <li>Um curso de 40h que você nunca termina</li>
+            <li>Teoria reciclada de quem só assistiu vídeo</li>
+            <li>Curso técnico de programação/Python</li>
+            <li>Promessa vaga de "ficar rico com IA"</li>
+            <li>Macete que morre na próxima atualização do modelo</li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-6 text-center text-zinc-300"><strong class="text-zinc-100">Tradução honesta:</strong> este curso te entrega uma <strong>habilidade</strong>, não um sonho. Você vai saber fazer a IA trabalhar no seu nível — tangível, mensurável e aplicável já na próxima vez que abrir o chat.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5 — Pra quem é / não é -->
+  <section class="mx-auto max-w-4xl px-4 py-14 reveal">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="rounded-2xl border border-white/10 bg-ink-800/50 p-6">
+        <h3 class="mb-4 text-lg font-bold text-brand-300">É pra você se…</h3>
+        <ul class="space-y-3 text-zinc-300">
+          <li>Usa IA no dia a dia (trabalho, estudo, conteúdo) e sente que extrai pouco.</li>
+          <li>Quer uma habilidade concreta e à prova de futuro, sem virar programador.</li>
+          <li>É freelancer/autônomo e quer entregar mais e melhor que a concorrência.</li>
+          <li>Quer entender, na base, como se constrói IA que trabalha sozinha — pra um dia vender isso.</li>
+          <li>Está cansado de tutorial solto e quer um método organizado, de quem faz.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-ink-800/50 p-6">
+        <h3 class="mb-4 text-lg font-bold text-zinc-400">NÃO é pra você se…</h3>
+        <ul class="space-y-3 text-zinc-400">
+          <li>Procura um botão mágico pra "ganhar dinheiro dormindo" sem aprender nada.</li>
+          <li>Já é especialista em prompt engineering e domina engenharia de contexto avançada.</li>
+          <li>Não está disposto a abrir a IA e fazer os exercícios. (Curso é pra aplicar, não pra colecionar.)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6 — Módulos -->
+  <section class="border-y border-white/10 bg-ink-900/50">
+    <div class="mx-auto max-w-5xl px-4 py-14 reveal">
+      <h2 class="text-center text-2xl font-bold sm:text-3xl">O que você vai aprender</h2>
+      <p class="mt-2 text-center text-zinc-400">6 módulos curtos. Do "prompt aleatório" ao seu primeiro entregável.</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {modulos.map(([t, d]) => (
+          <div class="rounded-2xl border border-white/10 bg-ink-800/60 p-6 transition hover:border-brand-500/40">
+            <h3 class="font-bold text-zinc-100">{t}</h3>
+            <p class="mt-2 text-zinc-400">{d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 7 — Stack de oferta -->
+  <section class="mx-auto max-w-3xl px-4 py-14 reveal" data-offer>
+    <h2 class="text-center text-2xl font-bold sm:text-3xl">Tudo o que você leva hoje por <span class="text-brand-400">R$97</span></h2>
+    <div class="mt-8 overflow-hidden rounded-2xl border border-white/10">
+      <table class="w-full text-left text-sm sm:text-base">
+        <tbody class="divide-y divide-white/10">
+          <tr class="bg-ink-800/60"><td class="p-4">✅ Curso <strong>Prompt Profissional — Mandando na IA</strong> (6 módulos)</td><td class="p-4 text-right text-zinc-400 line-through">R$497</td></tr>
+          <tr><td class="p-4">✅ Acesso <strong>vitalício</strong> + todas as atualizações futuras</td><td class="p-4 text-right text-brand-400">incluso</td></tr>
+          <tr class="bg-ink-800/60"><td class="p-4">🎁 Bônus 1 — <strong>Kit de Modelos de Prompt</strong></td><td class="p-4 text-right text-zinc-400 line-through">R$97</td></tr>
+          <tr><td class="p-4">🎁 Bônus 2 — Aula <strong>"Do prompt ao agente"</strong></td><td class="p-4 text-right text-zinc-400 line-through">R$147</td></tr>
+          <tr class="bg-ink-800/60"><td class="p-4">🎁 Bônus 3 — Acesso ao <strong>grupo de alunos</strong></td><td class="p-4 text-right text-zinc-400 line-through">R$97</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-brand-500/40 bg-brand-500/5 p-8 text-center">
+      <p class="text-zinc-400">Valor total ~<span class="line-through">R$935</span></p>
+      <p class="mt-1 text-zinc-300">Você paga hoje, à vista ou em até 12x:</p>
+      <p class="mt-2 text-5xl font-black text-brand-400">R$97</p>
+      <p class="mt-1 text-sm text-zinc-400">preço de fundador da primeira turma · sobe pra quem entrar depois</p>
+      <div class="mt-6">
+        <button data-checkout class={btnPrimary}>QUERO TUDO ISSO POR R$97 →</button>
+        <p class={microcopy}>Acesso imediato · garantia de 7 dias · Pix ou cartão em até 12x</p>
+      </div>
+    </div>
+
+    <p class="mt-5 rounded-xl border border-dashed border-white/15 bg-ink-800/40 p-4 text-sm text-zinc-400">
+      💡 No checkout você ainda pode adicionar o <strong class="text-zinc-200">Arsenal de Prompts</strong> (50 modelos prontos + 5 fluxos) por só +R$47 — opcional, você decide lá.
+    </p>
+  </section>
+
+  <!-- SEÇÃO 8 — Garantia -->
+  <section class="border-y border-white/10 bg-ink-900/50">
+    <div class="mx-auto max-w-2xl px-4 py-14 text-center reveal">
+      <div class="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-brand-500/15 text-3xl">🛡️</div>
+      <h2 class="text-2xl font-bold sm:text-3xl">Garantia incondicional de 7 dias. O risco é todo meu.</h2>
+      <p class="mt-4 text-lg text-zinc-300">Entre, assista, aplique nos seus prompts. Se em 7 dias sentir que não valeu — por qualquer motivo, sem precisar justificar — é só pedir e eu devolvo 100% do seu dinheiro.</p>
+      <p class="mt-3 font-semibold text-brand-300">Ou a IA passa a te obedecer, ou você não paga nada.</p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 9 — Prova -->
+  <section class="mx-auto max-w-4xl px-4 py-14 reveal">
+    <h2 class="text-center text-2xl font-bold sm:text-3xl">A prova não é promessa de aluno. É o que eu opero.</h2>
+    <p class="mt-2 text-center text-zinc-400">Estes são <strong class="text-zinc-200">meus</strong> sistemas de IA em produção — a evidência de que o método funciona na prática. Seu resultado depende da sua aplicação.</p>
+    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-white/10 bg-ink-800/60 p-6 text-center">
+        <div class="text-3xl">🤖</div>
+        <h3 class="mt-3 font-bold text-zinc-100">Agente no WhatsApp</h3>
+        <p class="mt-2 text-sm text-zinc-400">Atende, qualifica e conduz pra venda 24h. Na base dele: prompt bem feito.</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-ink-800/60 p-6 text-center">
+        <div class="text-3xl">🧠</div>
+        <h3 class="mt-3 font-bold text-zinc-100">Modelo sob medida</h3>
+        <p class="mt-2 text-sm text-zinc-400">IA treinada pra um domínio específico, no ar. O topo da escada — começa no prompt.</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-ink-800/60 p-6 text-center">
+        <div class="text-3xl">⚙️</div>
+        <h3 class="mt-3 font-bold text-zinc-100">Sistemas no ar</h3>
+        <p class="mt-2 text-sm text-zinc-400">Deploys próprios rodando agora. Não é teoria de blog — é o que eu faço todo dia.</p>
+      </div>
+    </div>
+    <p class="mt-6 text-center text-xs text-zinc-500">[Substituir por prints/gravações reais dos sistemas. Depoimentos de alunos entram aqui quando existirem — nunca antes.]</p>
+  </section>
+
+  <!-- SEÇÃO 10 — FAQ -->
+  <section class="border-t border-white/10 bg-ink-900/50">
+    <div class="mx-auto max-w-3xl px-4 py-14 reveal">
+      <h2 class="text-center text-2xl font-bold sm:text-3xl">Perguntas frequentes</h2>
+      <div class="mt-8 space-y-3">
+        {faq.map(([q, a]) => (
+          <details class="group rounded-xl border border-white/10 bg-ink-800/60 p-5">
+            <summary class="cursor-pointer list-none font-semibold text-zinc-100 marker:hidden flex items-center justify-between gap-4">
+              <span>{q}</span>
+              <span class="text-brand-400 transition group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-zinc-400">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 11 — CTA final -->
+  <section class="bg-glow">
+    <div class="mx-auto max-w-2xl px-4 py-16 text-center reveal">
+      <h2 class="text-2xl font-bold sm:text-3xl">Recapitulando o que você leva hoje:</h2>
+      <ul class="mx-auto mt-6 max-w-md space-y-2 text-left text-zinc-300">
+        <li>✅ O curso completo Prompt Profissional (6 módulos, aplicável hoje)</li>
+        <li>✅ Acesso vitalício + atualizações pra sempre</li>
+        <li>🎁 3 bônus (Kit de Modelos + aula "Do prompt ao agente" + grupo)</li>
+        <li>🛡️ Garantia incondicional de 7 dias</li>
+        <li>💳 Por R$97 à vista ou 12x — preço de fundador da primeira turma</li>
+      </ul>
+      <p class="mt-6 text-lg text-zinc-100">A IA não vai te esperar aprender. Mas o seu concorrente também não.</p>
+      <div class="mt-6">
+        <button data-checkout class={btnPrimary}>QUERO MANDAR NA IA — ACESSO POR R$97 →</button>
+        <p class={microcopy}>Acesso imediato · garantia de 7 dias · Pix ou 12x no cartão</p>
+      </div>
+      <p class="mx-auto mt-8 max-w-xl text-sm italic text-zinc-400">
+        P.S. — Se você chegou até aqui, já sabe que o problema nunca foi a IA. Por menos que um almoço, e com 7 dias de garantia total, o único risco real é continuar recebendo papa morna mais um ano. Clica no botão e resolve isso hoje.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-ink-950">
+    <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-zinc-500">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p>© 2026 MSC Academy · Prompt Profissional</p>
+        <div class="flex gap-5">
+          <a href="/privacidade" class="hover:text-zinc-300">Privacidade</a>
+          <a href="/termos" class="hover:text-zinc-300">Termos</a>
+          <a href="#" data-checkout class="hover:text-zinc-300">Comprar</a>
+        </div>
+      </div>
+      <p class="mt-6 text-xs text-zinc-600">Este produto não garante resultado financeiro. Ensinamos uma habilidade (engenharia de prompt); resultados dependem da aplicação de cada aluno. Pagamento processado pela Kiwify.</p>
+    </div>
+  </footer>
+
+  <!-- BARRA STICKY MOBILE -->
+  <div class="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-ink-950/95 p-3 backdrop-blur sm:hidden">
+    <button data-checkout class="w-full rounded-xl bg-brand-500 py-3 text-center font-extrabold text-ink-950">
+      QUERO POR R$97 →
+    </button>
+  </div>
+</Base>

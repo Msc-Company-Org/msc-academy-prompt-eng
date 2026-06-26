@@ -1,0 +1,22 @@
+{
+  "name": "msc-academy-prompt-eng",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Landing (VSL perpétuo) do curso Prompt Engineering R$97 — MSC Academy. Astro + Tailwind v4 + adapter Vercel.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^8.2.8",
+    "astro": "^5.14.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/node": "^22.10.2",
+    "tailwindcss": "^4.1.13"
+  }
+}
