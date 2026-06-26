@@ -1,0 +1,135 @@
+---
+import Base from '../../layouts/Base.astro';
+import { PECAS as pecas, METODO as metodo } from '../../lib/superpoderes';
+
+// Entrega da Isca B (Quiz) — personalizada por perfil (?seg=). Gated (noindex).
+const checkoutHref = '/?utm_source=email&utm_medium=crm&utm_campaign=arsenal_entrega&utm_content=entrega_quiz_bridge';
+---
+<Base
+  title="Seu superpoder de IA — arsenal personalizado | MSC Academy"
+  description="Seu arsenal de IA personalizado pelo seu perfil, pronto pra copiar e usar."
+  noindex={true}
+>
+  <header class="border-b border-ink/10">
+    <div class="shell flex items-center justify-between py-3">
+      <a href="/" class="flex items-center gap-2.5 font-semibold" aria-label="Arsenal de IA — MSC Academy">
+        <svg viewBox="0 0 32 32" class="h-8 w-8 shrink-0" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#163300"/>
+          <path d="M7.6 24.2 L16 7.2 L24.4 24.2" fill="none" stroke="#FAF7F0" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="10.8" y="17.2" width="10.4" height="2.7" rx="1.35" fill="#9FE870"/>
+          <circle cx="16" cy="7.2" r="2.5" fill="#FF4F40"/>
+        </svg>
+        <span class="font-display text-lg">Arsenal <span class="text-sage">de IA</span></span>
+      </a>
+      <span class="text-sm text-ink/45">Seu arsenal</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl">
+        <p class="eyebrow mb-3">Seu perfil · arsenal personalizado</p>
+        <h1 class="font-display text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-[2.8rem]">
+          Você é <span id="eq-nome" class="text-sage">o seu perfil</span>.
+        </h1>
+        <p id="eq-tagline" class="mt-3 font-display text-xl font-medium leading-snug text-ink/85"></p>
+        <p id="eq-desc" class="prose-flow mt-4"></p>
+        <div class="card card-lit mt-7 p-5">
+          <p class="font-display text-lg font-semibold">Instala em 3 passos</p>
+          <ol class="mt-3 space-y-2 text-ink/85">
+            <li class="flex gap-3"><span class="section-no">1.</span> Abre o ChatGPT, Claude ou Gemini.</li>
+            <li class="flex gap-3"><span class="section-no">2.</span> Começa pelos superpoderes marcados <span class="text-amber font-semibold">★ do seu perfil</span>.</li>
+            <li class="flex gap-3"><span class="section-no">3.</span> Copia, cola e troca o que está [entre colchetes]. Roda.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-citrus border-y border-ink/10">
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl space-y-6">
+        {pecas.map((p) => (
+          <article class="card p-6 reveal" data-peca={p.id}>
+            <div class="flex items-center justify-between gap-3">
+              <p class="eyebrow">{p.tag}</p>
+              <div class="flex items-center gap-3">
+                <span class="rec-badge hidden rounded-full bg-amber/15 px-2.5 py-0.5 text-xs font-bold text-amber">★ do seu perfil</span>
+                <button class="copy-btn text-sm font-semibold text-amber" type="button">Copiar</button>
+              </div>
+            </div>
+            <h2 class="mt-2 font-display text-xl font-bold">{p.titulo}</h2>
+            <p class="mt-1 text-ink/80">{p.oque}</p>
+            <pre class="asset-pre mt-4"><code>{p.prompt}</code></pre>
+            <p class="mt-3 text-sm text-ink/60"><strong class="text-ink/75">Como usar:</strong> {p.comoUsar}</p>
+          </article>
+        ))}
+
+        <article class="card-dark p-6 reveal">
+          <p class="eyebrow-light">Peça-bônus · o guia</p>
+          <h2 class="mt-2 font-display text-xl font-bold text-sand">{metodo.titulo}</h2>
+          <p class="mt-2 text-sand/80">{metodo.intro}</p>
+          <div class="mt-5 space-y-4">
+            {metodo.itens.map((m) => (
+              <div class="flex gap-4">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-citrus/20 font-display text-lg font-bold text-citrus">{m.letra}</span>
+                <div>
+                  <p class="font-semibold text-sand">{m.nome}</p>
+                  <p class="text-sand/75">{m.txt}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-coral border-t border-ink/10">
+    <div class="shell section text-center">
+      <p class="eyebrow mb-3">Seu perfil é o começo</p>
+      <h2 class="font-display text-3xl font-extrabold sm:text-4xl" id="eq-bridge-title">O Arsenal completo vai além do seu perfil.</h2>
+      <p id="eq-bridge" class="prose-flow mx-auto mt-4 max-w-xl"></p>
+      <a href={checkoutHref} class="btn-amber mt-7" data-checkout>VER O ARSENAL COMPLETO <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <script>
+    import { PROFILES } from '../../lib/quiz';
+    const seg = new URLSearchParams(location.search).get('seg') || 'conteudo';
+    const p = (PROFILES as any)[seg] || PROFILES.conteudo;
+
+    const set = (id: string, txt: string) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    set('eq-nome', p.nome.replace(/^O /, '').replace(/^A /, ''));
+    set('eq-tagline', p.tagline);
+    const desc = document.getElementById('eq-desc'); if (desc) desc.innerHTML = `<p>${p.desc}</p>`;
+    const bridge = document.getElementById('eq-bridge'); if (bridge) bridge.innerHTML = `<p>${p.bridge}</p><p>E cresce toda semana.</p>`;
+
+    // marca os superpoderes recomendados pro perfil e os põe no topo
+    const box = document.querySelector('.sec-citrus .max-w-2xl');
+    const rec: string[] = p.recomendados || [];
+    document.querySelectorAll('article[data-peca]').forEach((el) => {
+      const id = el.getAttribute('data-peca') || '';
+      if (rec.includes(id)) {
+        el.querySelector('.rec-badge')?.classList.remove('hidden');
+        if (box && box.firstElementChild) box.insertBefore(el, box.firstElementChild);
+      }
+    });
+    // reordena os recomendados na ordem do perfil
+    [...rec].reverse().forEach((id) => {
+      const el = document.querySelector(`article[data-peca="${id}"]`);
+      if (el && box && box.firstElementChild) box.insertBefore(el, box.firstElementChild);
+    });
+
+    // copiar
+    document.querySelectorAll('.copy-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const pre = btn.closest('article')?.querySelector('pre');
+        navigator.clipboard?.writeText(pre?.textContent || '').then(() => {
+          const old = btn.textContent; btn.textContent = 'Copiado ✓';
+          setTimeout(() => { btn.textContent = old; }, 1600);
+        });
+      });
+    });
+  </script>
+</Base>

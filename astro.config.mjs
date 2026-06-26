@@ -10,8 +10,8 @@ export default defineConfig({
   site: 'https://arsenal.msc-academy.com.br',
   output: 'static',
   integrations: [sitemap({
-    // não indexar páginas de pós-conversão/captura no sitemap
-    filter: (page) => !/\/(obrigado|arsenal-gratis\/pronto)\/?$/.test(page),
+    // não indexar páginas de pós-conversão e de entrega (gated) no sitemap
+    filter: (page) => !/\/(obrigado|membros|arsenal-gratis\/pronto|quiz\/pronto|entrega\/[^/]+)\/?$/.test(page),
   })],
   adapter: vercel({
     webAnalytics: { enabled: false },

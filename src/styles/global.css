@@ -160,6 +160,43 @@ h1, h2, h3, .font-display { font-family: var(--font-display); text-wrap: balance
 .sec-coral  { background: color-mix(in srgb, var(--color-amber) 8%, var(--color-sand)); }
 .sec-line   { border-block: 1px solid color-mix(in srgb, var(--color-ink) 13%, transparent); }
 
+/* ---- eyebrow sobre fundo escuro (card-dark) ---- */
+.eyebrow-light {
+  font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-citrus);
+}
+
+/* ---- opção de quiz (botão selecionável) ---- */
+.q-opt {
+  display: block; width: 100%; cursor: pointer;
+  border-radius: 0.85rem; border: 1px solid var(--hair-strong);
+  background: color-mix(in srgb, var(--color-sand-dark) 45%, #fff);
+  padding: 0.95rem 1.1rem; font-size: 1.0625rem; font-weight: 500; color: var(--color-ink);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.q-opt:hover {
+  border-color: color-mix(in srgb, var(--color-sage) 65%, transparent);
+  background: color-mix(in srgb, var(--color-sage) 9%, #fff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(22,51,0,.09);
+}
+.q-opt.is-sel {
+  border-color: var(--color-sage);
+  background: color-mix(in srgb, var(--color-citrus) 18%, #fff);
+}
+
+/* ---- bloco de asset copiável (páginas de entrega) ---- */
+.asset-pre {
+  white-space: pre-wrap; word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem; line-height: 1.62;
+  color: color-mix(in srgb, var(--color-ink) 92%, transparent);
+  background: color-mix(in srgb, var(--color-sand-dark) 72%, #fff);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 13%, transparent);
+  border-radius: 0.7rem; padding: 1rem 1.1rem;
+  max-height: 20rem; overflow: auto;
+}
+
 /* ---- CTA Âmbar ---- */
 .btn-amber {
   position: relative; overflow: hidden;

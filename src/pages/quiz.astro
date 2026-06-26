@@ -1,0 +1,169 @@
+---
+import Base from '../layouts/Base.astro';
+const desc = 'Responda 6 perguntas (1 min) e descubra qual superpoder de IA vai destravar o seu trabalho — com um mini-arsenal personalizado, grátis. Sem precisar programar.';
+---
+<Base title="Quiz: descubra seu superpoder de IA | MSC Academy" description={desc} canonical="https://arsenal.msc-academy.com.br/quiz">
+  <header class="border-b border-ink/10">
+    <div class="shell flex items-center justify-between py-3">
+      <a href="/" class="flex items-center gap-2.5 font-semibold" aria-label="Arsenal de IA — MSC Academy">
+        <svg viewBox="0 0 32 32" class="h-8 w-8 shrink-0" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#163300"/>
+          <path d="M7.6 24.2 L16 7.2 L24.4 24.2" fill="none" stroke="#FAF7F0" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="10.8" y="17.2" width="10.4" height="2.7" rx="1.35" fill="#9FE870"/>
+          <circle cx="16" cy="7.2" r="2.5" fill="#FF4F40"/>
+        </svg>
+        <span class="font-display text-lg">Arsenal <span class="text-sage">de IA</span></span>
+      </a>
+      <span class="text-sm text-ink/45">Quiz · 1 min</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="shell section">
+      <div class="mx-auto max-w-xl">
+
+        <!-- INTRO -->
+        <div id="q-intro">
+          <p class="eyebrow mb-3">Grátis · 1 minuto · sem codar</p>
+          <h1 class="font-display text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-[2.9rem]">Qual superpoder de IA vai destravar o SEU trabalho?</h1>
+          <p class="mt-4 font-display text-xl font-medium leading-snug text-ink/85">Responde 6 perguntas e recebe seu <span class="hl">mini-arsenal</span> personalizado.</p>
+          <div class="prose-flow mt-5">
+            <p>Não é teste de personalidade.</p>
+            <p>No fim, você sai com superpoderes prontos pra copiar e usar hoje — os do seu perfil.</p>
+          </div>
+          <button id="q-start" class="btn-amber mt-7">COMEÇAR O QUIZ <span class="arrow">→</span></button>
+        </div>
+
+        <!-- QUIZ -->
+        <div id="q-quiz" class="hidden">
+          <div class="mb-6">
+            <div class="flex items-center justify-between text-sm text-ink/55">
+              <span id="q-counter">Pergunta 1 de 6</span>
+              <span id="q-pct">17%</span>
+            </div>
+            <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-ink/10">
+              <div id="q-bar" class="h-full rounded-full bg-sage transition-[width] duration-300" style="width:17%"></div>
+            </div>
+          </div>
+          <h2 id="q-question" class="font-display text-2xl font-bold leading-tight sm:text-3xl">…</h2>
+          <div id="q-options" class="mt-6 space-y-3"></div>
+          <button id="q-back" class="mt-6 text-sm text-ink/50 hover:text-ink/80">← voltar</button>
+        </div>
+
+        <!-- RESULTADO + CAPTURA -->
+        <div id="q-result" class="hidden">
+          <p class="eyebrow mb-3">Seu resultado</p>
+          <h2 class="font-display text-sm font-semibold uppercase tracking-widest text-indigo">Seu superpoder de IA é</h2>
+          <p id="r-nome" class="mt-1 font-display text-[2rem] font-extrabold leading-tight sm:text-[2.6rem]">…</p>
+          <p id="r-tagline" class="mt-2 font-display text-xl font-medium text-ink/85">…</p>
+          <p id="r-desc" class="prose-flow mt-4"></p>
+
+          <div class="card card-lit mt-7 p-6">
+            <p class="font-display text-lg font-semibold">Você desbloqueou <span id="r-count">3</span> dos 12 superpoderes.</p>
+            <p class="mt-1 text-ink/75">Pra onde mando seu arsenal personalizado + 1 bônus do seu perfil?</p>
+            <form id="quiz-form" class="mt-5 space-y-4">
+              <div class="field">
+                <label class="field-label" for="qf-email">E-mail</label>
+                <input id="qf-email" name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" class="input" required />
+              </div>
+              <div class="field">
+                <label class="field-label" for="qf-phone">WhatsApp (com DDD)</label>
+                <input id="qf-phone" name="phone" type="tel" autocomplete="tel" placeholder="(21) 9 0000-0000" class="input" required />
+              </div>
+              <button type="submit" class="btn-amber w-full">QUERO MEU ARSENAL <span class="arrow">→</span></button>
+              <p id="quiz-msg" class="field-error hidden text-center"></p>
+              <p class="text-center text-xs text-ink/50">Sem cartão. Entrega por e-mail. Sai quando quiser.</p>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { QUESTIONS, score, PROFILES } from '../lib/quiz';
+    import { track, uuid, getAttribution, getGaClientId } from '../lib/tracking';
+
+    const answers: number[] = [];
+    let seg = 'conteudo';
+    let cur = 0;
+
+    const $ = (id: string) => document.getElementById(id);
+    const intro = $('q-intro'), quiz = $('q-quiz'), result = $('q-result');
+
+    function renderQuestion(i: number) {
+      cur = i;
+      const q = QUESTIONS[i];
+      ($('q-question') as HTMLElement).textContent = q.pergunta;
+      ($('q-counter') as HTMLElement).textContent = `Pergunta ${i + 1} de ${QUESTIONS.length}`;
+      const pct = Math.round(((i + 1) / QUESTIONS.length) * 100);
+      ($('q-pct') as HTMLElement).textContent = pct + '%';
+      ($('q-bar') as HTMLElement).style.width = pct + '%';
+      ($('q-back') as HTMLElement).style.visibility = i === 0 ? 'hidden' : 'visible';
+      const box = $('q-options') as HTMLElement;
+      box.innerHTML = '';
+      q.opcoes.forEach((opt, idx) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'q-opt w-full text-left';
+        if (answers[i] === idx) b.classList.add('is-sel');
+        b.textContent = opt.label;
+        b.addEventListener('click', () => {
+          answers[i] = idx;
+          if (i + 1 < QUESTIONS.length) renderQuestion(i + 1);
+          else showResult();
+        });
+        box.appendChild(b);
+      });
+    }
+
+    function showResult() {
+      seg = score(answers);
+      const p = PROFILES[seg as keyof typeof PROFILES];
+      ($('r-nome') as HTMLElement).textContent = p.nome;
+      ($('r-tagline') as HTMLElement).textContent = p.tagline;
+      ($('r-desc') as HTMLElement).innerHTML = `<p>${p.desc}</p>`;
+      ($('r-count') as HTMLElement).textContent = String(p.recomendados.length);
+      quiz?.classList.add('hidden');
+      result?.classList.remove('hidden');
+      track('quiz_complete', { lead_source: 'quiz', quiz_result: seg, variant: 'B' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $('q-start')?.addEventListener('click', () => {
+      intro?.classList.add('hidden');
+      quiz?.classList.remove('hidden');
+      track('quiz_start', { lead_source: 'quiz', variant: 'B' });
+      renderQuestion(0);
+    });
+    $('q-back')?.addEventListener('click', () => { if (cur > 0) renderQuestion(cur - 1); });
+
+    // captura tardia
+    const form = $('quiz-form') as HTMLFormElement | null;
+    let started = false;
+    form?.addEventListener('focusin', () => { if (!started) { started = true; track('form_start', { form_id: 'optin_quiz', surface: 'quiz' }); } });
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const event_id = uuid();
+      const profissao = QUESTIONS[0].opcoes[answers[0]]?.label || null;
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement | null;
+      if (btn) { btn.setAttribute('aria-busy', 'true'); btn.disabled = true; }
+      try {
+        await fetch('/api/lead', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: fd.get('email'), phone: fd.get('phone'), profissao,
+            isca: 'quiz', variant: 'B', quiz_result: seg, source_surface: 'quiz',
+            sample: 'quiz', event_id, client_id: getGaClientId(), attribution: getAttribution(),
+            fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1], fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1],
+          }),
+        });
+      } catch { /* segue */ }
+      document.cookie = `arsenal_lead=1; max-age=${180 * 864e2}; path=/; SameSite=Lax`;
+      track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'quiz', form_id: 'optin_quiz', method: 'email', event_id, isca: 'quiz', variant: 'B', quiz_result: seg });
+      location.href = `/quiz/pronto?seg=${encodeURIComponent(seg)}`;
+    });
+  </script>
+</Base>

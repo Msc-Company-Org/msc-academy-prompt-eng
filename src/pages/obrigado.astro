@@ -15,12 +15,14 @@ import Base from '../layouts/Base.astro';
   <script>
     import { track } from '../lib/tracking';
     const sp = new URLSearchParams(location.search);
-    const orderId = sp.get('order_id') || sp.get('transaction_id');
-    const value = Number(sp.get('amount') || sp.get('value') || 97);
-    if (orderId) {
+    // Stripe manda session_id no success_url; usamos como transaction_id/event_id
+    // (mesmo id do webhook → dedup no GA4 e no Meta). Value padrão = lote de fundador.
+    const sid = sp.get('session_id') || sp.get('order_id') || sp.get('transaction_id');
+    const value = Number(sp.get('value') || 97);
+    if (sid) {
       track('purchase', {
-        transaction_id: orderId, value, currency: 'BRL', event_id: orderId,
-        items: [{ item_id: 'curso-prompt-97', item_name: 'Prompt Profissional', price: value, quantity: 1 }],
+        transaction_id: sid, value, currency: 'BRL', event_id: sid,
+        items: [{ item_id: 'arsenal-de-ia-97', item_name: 'Arsenal de IA', price: value, quantity: 1 }],
       });
     }
   </script>

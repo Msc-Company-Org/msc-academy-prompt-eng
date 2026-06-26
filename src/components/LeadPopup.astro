@@ -115,12 +115,13 @@
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: fd.get('email'), phone: fd.get('phone'), profissao: fd.get('profissao'),
+          isca: 'arsenal-7', variant: 'A', source_surface: 'popup',
           sample: '7-do-arsenal', event_id, client_id: getGaClientId(), attribution: getAttribution(),
           fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1], fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1],
         }),
       });
     } catch { /* segue mesmo se a API falhar */ }
-    track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'popup', form_id: 'optin_popup', method: 'email', event_id, sample: '7-do-arsenal' });
+    track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'popup', form_id: 'optin_popup', method: 'email', event_id, sample: '7-do-arsenal', isca: 'arsenal-7', variant: 'A' });
     setCookie('converted', 180);
     document.getElementById('popup-offer')?.classList.add('hidden');
     document.getElementById('popup-success')?.classList.remove('hidden');

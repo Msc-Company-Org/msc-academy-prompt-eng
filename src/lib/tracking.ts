@@ -33,8 +33,14 @@ export function captureAttribution(): Attribution {
   const hasNew = Object.values(fresh).some(Boolean);
   let stored: Attribution = {};
   try { stored = JSON.parse(localStorage.getItem(ATTR_KEY) || '{}'); } catch { /* noop */ }
-  // last-touch para tráfego pago: sobrescreve se vier gclid/fbclid/utm novo
-  const merged = hasNew ? { ...stored, ...fresh } : stored;
+  // last-touch para tráfego pago: sobrescreve se vier gclid/fbclid/utm novo.
+  // IMPORTANTE: só mescla as chaves DEFINIDAS de `fresh` — senão um chave `undefined`
+  // (ex.: voltar pelo bridge só com UTMs) apagaria o gclid/fbclid já salvos e a venda
+  // nunca seria atribuída ao clique pago.
+  const freshDefined = Object.fromEntries(
+    Object.entries(fresh).filter(([, v]) => v != null && v !== '')
+  ) as Attribution;
+  const merged = hasNew ? { ...stored, ...freshDefined } : stored;
   try {
     localStorage.setItem(ATTR_KEY, JSON.stringify(merged));
     document.cookie = `${ATTR_KEY}=${encodeURIComponent(JSON.stringify(merged))};path=/;max-age=${60 * 60 * 24 * 90};SameSite=Lax`;
@@ -75,27 +81,30 @@ export function getGaClientId(): string | undefined {
   return m?.[1];
 }
 
-const ITEM = { item_id: 'curso-prompt-97', item_name: 'Prompt Profissional', price: 97, quantity: 1 };
+const ITEM = { item_id: 'arsenal-de-ia-97', item_name: 'Arsenal de IA', price: 97, quantity: 1 };
 
-/** Monta a URL do checkout Kiwify carimbando atribuição (gclid/fbclid/utm) e dispara begin_checkout */
-export function goToCheckout(opts: { email?: string } = {}): void {
-  const base = (import.meta.env.PUBLIC_KIWIFY_CHECKOUT_URL as string) || '#';
-  // sem checkout real ainda → NÃO dispara begin_checkout (evita carrinho fantasma no funil)
-  if (base === '#') { return; }
+/**
+ * Checkout INTERNO via Stripe: chama /api/checkout (que cria a sessão carimbando
+ * gclid/fbclid/utm/ga_client_id nos metadados) e redireciona pra URL hospedada do Stripe.
+ * Dispara begin_checkout. Pix/cartão/boleto conforme o que estiver ativo na conta Stripe.
+ */
+export async function goToCheckout(opts: { email?: string; produto?: 'arsenal' | 'tripwire' } = {}): Promise<void> {
   const a = getAttribution();
-  track('begin_checkout', { value: 97, currency: 'BRL', event_id: uuid(), items: [ITEM] });
-  const qs = new URLSearchParams();
-  if (a.utm_source) qs.set('utm_source', a.utm_source);
-  if (a.utm_medium) qs.set('utm_medium', a.utm_medium);
-  if (a.utm_campaign) qs.set('utm_campaign', a.utm_campaign);
-  if (a.utm_content) qs.set('utm_content', a.utm_content);
-  if (a.utm_term) qs.set('utm_term', a.utm_term);
-  if (a.gclid) qs.set('s1', `gclid:${a.gclid}`);   // [SUP] confirmar campo custom do Kiwify
-  if (a.fbclid) qs.set('s2', `fbclid:${a.fbclid}`);
-  const cid = getGaClientId(); if (cid) qs.set('s3', `cid:${cid}`);
-  if (opts.email) qs.set('email', opts.email);
-  const sep = base.includes('?') ? '&' : '?';
-  window.location.href = `${base}${sep}${qs.toString()}`;
+  const price = opts.produto === 'tripwire' ? 27 : 97;
+  track('begin_checkout', { value: price, currency: 'BRL', event_id: uuid(), items: [ITEM] });
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: opts.email, produto: opts.produto || 'arsenal',
+        attribution: a, client_id: getGaClientId(),
+        fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1], fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1],
+      }),
+    });
+    const data = await res.json();
+    if (data?.url) { window.location.href = data.url; return; }
+    console.error('[checkout] sem url', data);
+  } catch (e) { console.error('[checkout] falhou', e); }
 }
 
 /** Inicialização padrão de toda página: consent banner + page_view + reveal + view_offer + VSL */
