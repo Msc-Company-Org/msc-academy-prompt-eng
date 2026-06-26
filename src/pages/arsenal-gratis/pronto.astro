@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Pronto! Suas 7 peças estão a caminho — MSC Academy" noindex={true} canonical="https://arsenal.msc-academy.com.br/arsenal-gratis/pronto">
+  <section>
+    <div class="shell section">
+      <div class="mx-auto max-w-xl text-center">
+        <div class="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-sage/15 text-2xl">✅</div>
+        <h1 class="font-display text-3xl font-extrabold sm:text-4xl">Tá indo. As 7 peças já estão no seu e-mail e WhatsApp.</h1>
+        <div class="prose-flow mx-auto mt-5 text-center">
+          <p>Confere a caixa de entrada — e o spam, por garantia.</p>
+          <p>Começa pelos 3 templates da sua área.</p>
+        </div>
+
+        <div class="card mt-9 p-7 text-left">
+          <p class="eyebrow mb-2">Enquanto as peças chegam</p>
+          <div class="prose-flow">
+            <p class="lead">Você acabou de provar uma fatia do Arsenal.</p>
+            <p>O Arsenal completo são os 3 níveis — templates, fluxos, skills e superpowers — + o Método P.R.O.©.</p>
+            <p>Tudo o que eu rodo em produção, por R$97.</p>
+          </div>
+          <a href="/?utm_source=arsenal_gratis&utm_medium=bridge" class="btn-amber mt-6 w-full justify-center" id="bridge-cta">VER O ARSENAL COMPLETO <span class="arrow">→</span></a>
+          <p class="mt-3 text-center text-sm text-ink/55">Sem pressa: as 7 peças são suas de qualquer jeito.</p>
+        </div>
+
+        <a href="/" class="mt-8 inline-block text-sm text-ink/50 hover:text-ink">← Voltar ao início</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { track } from '../../lib/tracking';
+    document.getElementById('bridge-cta')?.addEventListener('click', () => track('bridge_cta_click', { from: 'arsenal_gratis' }));
+  </script>
+</Base>

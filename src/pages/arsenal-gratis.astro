@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+const desc = 'Pegue 7 ferramentas de IA que funcionam — de graça, antes de pagar por nenhuma. Templates da sua profissão + fluxos + 1 skill + o Método P.R.O.©. Amostra do Arsenal de IA.';
+---
+<Base title="7 peças do Arsenal de IA — grátis | MSC Academy" description={desc} canonical="https://arsenal.msc-academy.com.br/arsenal-gratis">
+  <header class="border-b border-ink/10">
+    <div class="shell flex items-center justify-between py-3">
+      <a href="/" class="flex items-center gap-2 font-semibold">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-ink font-display text-sand">A</span>
+        <span class="font-display text-lg">MSC <span class="text-indigo">Academy</span></span>
+      </a>
+      <a href="/" class="text-sm text-ink/55 hover:text-ink">Ver o Arsenal completo →</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="shell section">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div>
+          <p class="eyebrow mb-4">Amostra grátis · 7 peças do Arsenal de IA</p>
+          <h1 class="font-display text-[2.4rem] font-extrabold leading-[1.07] tracking-tight sm:text-[3.4rem]">
+            Pega 7 ferramentas de IA que funcionam.
+            <span class="block text-indigo">Antes de pagar por nenhuma.</span>
+          </h1>
+          <div class="prose-flow mt-6 max-w-[30rem]">
+            <p class="lead">Não é mais um PDF de "100 prompts" que ninguém usa.</p>
+            <p>São 7 peças que eu rodo nos meus sistemas — em produção, com cliente pagando.</p>
+            <p>Você escolhe sua área, recebe as 7 e testa hoje.</p>
+          </div>
+        </div>
+
+        <div class="card p-7" id="form-card">
+          <h2 class="font-display text-xl font-semibold">Receba as 7 peças agora</h2>
+          <form id="lead-form" class="mt-4 space-y-4">
+            <div class="field">
+              <label class="field-label" for="lf-area">Sua área</label>
+              <select id="lf-area" name="profissao" class="select" required>
+                <option value="">Selecione…</option>
+                <option>Vendas / Comercial</option>
+                <option>Atendimento / Suporte</option>
+                <option>Conteúdo / Social Media</option>
+                <option>Escritório / Administrativo</option>
+                <option>Freelancer / Serviços</option>
+                <option>Estudo / Concurso / Carreira</option>
+                <option>Outra</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="lf-email">E-mail</label>
+              <input id="lf-email" name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" class="input" required />
+            </div>
+            <div class="field">
+              <label class="field-label" for="lf-phone">WhatsApp (com DDD)</label>
+              <input id="lf-phone" name="phone" type="tel" autocomplete="tel" placeholder="(21) 9 0000-0000" class="input" required />
+            </div>
+            <button type="submit" class="btn-amber w-full">QUERO AS 7 PEÇAS GRÁTIS <span class="arrow">→</span></button>
+            <p id="lead-msg" class="field-error hidden text-center"></p>
+            <p class="text-center text-xs text-ink/50">Sem cartão. Entrega por e-mail e WhatsApp. Cancela quando quiser.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-ink/10 bg-sand-dark">
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl">
+        <p class="eyebrow mb-3">O que cai no seu e-mail</p>
+        <ul class="space-y-3 text-lg text-ink/85">
+          <li class="text-sage">✓ <span class="text-ink/85"><strong>3 templates da sua profissão</strong> — pra resolver tarefa real, não exemplo de blog.</span></li>
+          <li class="text-sage">✓ <span class="text-ink/85"><strong>2 fluxos prontos</strong> — onde uma IA puxa a outra e o trabalho anda sozinho.</span></li>
+          <li class="text-sage">✓ <span class="text-ink/85"><strong>1 skill avançada</strong> — uma das que separam quem brinca de quem entrega.</span></li>
+          <li class="text-sage">✓ <span class="text-ink/85"><strong>1 página do Método P.R.O.©</strong> — pra você adaptar e criar os seus, não só copiar.</span></li>
+        </ul>
+        <div class="prose-flow mt-6">
+          <p>É uma fatia do Arsenal completo.</p>
+          <p>Se as 7 já te ajudam, imagina as outras dezenas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl">
+        <p class="eyebrow mb-3">Quem tá do outro lado</p>
+        <div class="prose-flow">
+          <p class="lead">Meu nome é Moisés.</p>
+          <p>Eu não vendo curso de IA pra quem nunca abriu a IA.</p>
+          <p>Eu coloco agentes de WhatsApp e modelos sob medida pra rodar em produção, todo dia.</p>
+          <p>Essas 7 peças saíram de lá de dentro — do que realmente funciona, não do que é bonito no print.</p>
+        </div>
+        <p class="seal-real mt-5">● Testado em produção</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-ink/10 bg-sand-dark">
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl">
+        <p class="eyebrow mb-6">Depois que você se cadastrar</p>
+        <ol class="space-y-5">
+          <li class="flex gap-4"><span class="section-no text-2xl">1.</span><p class="text-lg text-ink/85">As 7 peças chegam no seu e-mail em segundos.</p></li>
+          <li class="flex gap-4"><span class="section-no text-2xl">2.</span><p class="text-lg text-ink/85">Mando o mesmo link no WhatsApp, pra não se perder.</p></li>
+          <li class="flex gap-4"><span class="section-no text-2xl">3.</span><p class="text-lg text-ink/85">Você testa as 3 da sua área hoje e me conta se entregou.</p></li>
+        </ol>
+        <p class="mt-6 font-display text-lg italic text-ink/70">Sem ligação. Sem enrolação. Sem pegadinha.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shell section">
+      <div class="mx-auto max-w-2xl divide-y divide-ink/12 border-y border-ink/12">
+        <details class="group py-1"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold marker:hidden">É grátis mesmo ou tem cobrança escondida?<span class="text-xl text-indigo transition group-open:rotate-45">+</span></summary><p class="pb-4 text-ink/75">Grátis de verdade. Sem cartão, sem trial, sem letra miúda.</p></details>
+        <details class="group py-1"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold marker:hidden">Preciso saber programar ou entender de IA?<span class="text-xl text-indigo transition group-open:rotate-45">+</span></summary><p class="pb-4 text-ink/75">Não. Você copia, cola e adapta. As 7 peças vêm com instrução de uso.</p></details>
+        <details class="group py-1"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold marker:hidden">Pra que vocês querem meu WhatsApp?<span class="text-xl text-indigo transition group-open:rotate-45">+</span></summary><p class="pb-4 text-ink/75">Só pra entregar as peças e avisar quando sair coisa nova. Você cancela com uma palavra.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-ink/10 bg-sand-dark">
+    <div class="shell section text-center">
+      <h2 class="font-display text-3xl font-extrabold sm:text-4xl">7 peças. Grátis. Hoje.</h2>
+      <a href="#form-card" class="btn-amber mt-7">QUERO AS 7 PEÇAS GRÁTIS <span class="arrow">→</span></a>
+      <p class="mt-6 text-sm text-ink/50"><a href="/privacidade" class="underline hover:text-ink">Política de privacidade</a></p>
+    </div>
+  </section>
+
+  <script>
+    import { track, uuid, getAttribution, getGaClientId } from '../lib/tracking';
+    const form = document.getElementById('lead-form') as HTMLFormElement | null;
+    let started = false;
+    form?.addEventListener('focusin', () => { if (!started) { started = true; track('form_start', { form_id: 'optin_arsenal_gratis', surface: 'lead_lp' }); } });
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const event_id = uuid();
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement | null;
+      if (btn) { btn.setAttribute('aria-busy', 'true'); btn.disabled = true; }
+      try {
+        await fetch('/api/lead', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: fd.get('email'), phone: fd.get('phone'), profissao: fd.get('profissao'),
+            sample: '7-do-arsenal', event_id, client_id: getGaClientId(), attribution: getAttribution(),
+            fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1], fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1],
+          }),
+        });
+      } catch { /* segue */ }
+      document.cookie = `arsenal_lead=1; max-age=${180 * 864e2}; path=/; SameSite=Lax`;
+      track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'arsenal_gratis', form_id: 'optin_arsenal_gratis', method: 'email', event_id, sample: '7-do-arsenal' });
+      location.href = '/arsenal-gratis/pronto';
+    });
+  </script>
+</Base>

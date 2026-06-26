@@ -1,0 +1,128 @@
+---
+// Popup de captura "7 do Arsenal" — exibido na página de vendas.
+// Gatilho: exit-intent (desktop) / scroll 55% ou 20s (mobile), 1x, anti-irritação por cookie.
+---
+<div id="arsenal-popup" class="popup-overlay" aria-hidden="true">
+  <div class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+    <button id="popup-close-x" class="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full text-ink/50 hover:bg-ink/5 hover:text-ink" aria-label="Fechar">✕</button>
+
+    <!-- estado: oferta -->
+    <div id="popup-offer">
+      <p class="eyebrow mb-3">Amostra grátis do arsenal</p>
+      <h2 id="popup-title" class="font-display text-2xl font-extrabold leading-tight">Leva 7 peças do Arsenal pra testar. De graça, agora.</h2>
+      <div class="prose-flow mt-3 text-[15px]">
+        <p>São 7 assets que eu uso em produção — os mesmos do produto pago.</p>
+        <p>Você copia, cola e roda hoje.</p>
+      </div>
+      <ul class="mt-4 space-y-2 text-[15px] text-ink/85">
+        <li class="text-sage">✓ <span class="text-ink/85">3 templates da SUA profissão, prontos pra adaptar.</span></li>
+        <li class="text-sage">✓ <span class="text-ink/85">2 fluxos que encadeiam IA (não é prompt solto).</span></li>
+        <li class="text-sage">✓ <span class="text-ink/85">1 skill avançada + 1 página do Método P.R.O.©.</span></li>
+      </ul>
+      <form id="popup-form" class="mt-5 space-y-3">
+        <select name="profissao" class="select" required aria-label="Sua área">
+          <option value="">Sua área…</option>
+          <option>Vendas / Comercial</option>
+          <option>Atendimento / Suporte</option>
+          <option>Conteúdo / Social Media</option>
+          <option>Escritório / Administrativo</option>
+          <option>Freelancer / Serviços</option>
+          <option>Estudo / Concurso / Carreira</option>
+          <option>Outra</option>
+        </select>
+        <input name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" class="input" required aria-label="E-mail" />
+        <input name="phone" type="tel" autocomplete="tel" placeholder="WhatsApp (com DDD)" class="input" required aria-label="WhatsApp" />
+        <button type="submit" class="btn-amber w-full">QUERO AS 7 PEÇAS GRÁTIS <span class="arrow">→</span></button>
+        <p id="popup-msg" class="field-error hidden text-center"></p>
+        <p class="text-center text-xs text-ink/50">Sem cartão. Sem spam. Sai quando quiser.</p>
+      </form>
+      <button id="popup-close-link" class="mt-3 block w-full text-center text-sm text-ink/50 hover:text-ink/70">Agora não, obrigado</button>
+    </div>
+
+    <!-- estado: sucesso -->
+    <div id="popup-success" class="hidden text-center">
+      <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-sage/15 text-2xl">✅</div>
+      <h2 class="font-display text-xl font-bold">Pronto. As 7 peças já estão indo.</h2>
+      <div class="prose-flow mx-auto mt-3 text-center text-[15px]">
+        <p>Confere seu e-mail e WhatsApp.</p>
+        <p>Enquanto chega, dá uma olhada no Arsenal completo aqui embaixo.</p>
+      </div>
+      <button id="popup-see-offer" class="btn-ghost mt-5 w-full justify-center">Ver o Arsenal completo →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { track, uuid, getAttribution, getGaClientId } from '../lib/tracking';
+
+  const POPUP_COOKIE = 'arsenal_lead_popup';
+  const overlay = document.getElementById('arsenal-popup');
+  const form = document.getElementById('popup-form') as HTMLFormElement | null;
+  const seen = () => /arsenal_lead_popup=(closed|converted)/.test(document.cookie) || /arsenal_lead=/.test(document.cookie);
+  const setCookie = (v: string, days: number) => {
+    const d = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${POPUP_COOKIE}=${v}; expires=${d}; path=/; SameSite=Lax`;
+  };
+
+  let fired = false;
+  const loadedAt = Date.now();
+  function open() {
+    if (fired || seen() || Date.now() - loadedAt < 8000) return;
+    fired = true;
+    overlay?.classList.add('is-open');
+    overlay?.setAttribute('aria-hidden', 'false');
+    track('view_lead_popup', { surface: 'sales_page' });
+  }
+  function close(converted = false) {
+    overlay?.classList.remove('is-open');
+    overlay?.setAttribute('aria-hidden', 'true');
+    if (!converted) { setCookie('closed', 7); track('dismiss_lead_popup', { surface: 'sales_page' }); }
+  }
+
+  const isMobile = matchMedia('(max-width: 768px)').matches;
+  if (isMobile) {
+    addEventListener('scroll', () => {
+      const pct = scrollY / (document.body.scrollHeight - innerHeight);
+      if (pct >= 0.55) open();
+    }, { passive: true });
+    setTimeout(open, 20000);
+  } else {
+    let armed = false;
+    document.addEventListener('mouseout', (e) => { if (e.clientY <= 0 && !e.relatedTarget) open(); });
+    setTimeout(() => { armed = true; }, 40000);
+    addEventListener('wheel', (e) => { if (armed && e.deltaY < 0) open(); }, { passive: true });
+  }
+
+  document.getElementById('popup-close-x')?.addEventListener('click', () => close());
+  document.getElementById('popup-close-link')?.addEventListener('click', () => close());
+  overlay?.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay?.classList.contains('is-open')) close(); });
+  document.getElementById('popup-see-offer')?.addEventListener('click', () => {
+    close(true);
+    document.querySelector('[data-offer]')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  let started = false;
+  form?.addEventListener('focusin', () => { if (!started) { started = true; track('form_start', { form_id: 'optin_popup', surface: 'sales_page' }); } });
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const event_id = uuid();
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement | null;
+    if (btn) { btn.setAttribute('aria-busy', 'true'); btn.disabled = true; }
+    try {
+      await fetch('/api/lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: fd.get('email'), phone: fd.get('phone'), profissao: fd.get('profissao'),
+          sample: '7-do-arsenal', event_id, client_id: getGaClientId(), attribution: getAttribution(),
+          fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1], fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1],
+        }),
+      });
+    } catch { /* segue mesmo se a API falhar */ }
+    track('generate_lead', { value: 5, currency: 'BRL', lead_source: 'popup', form_id: 'optin_popup', method: 'email', event_id, sample: '7-do-arsenal' });
+    setCookie('converted', 180);
+    document.getElementById('popup-offer')?.classList.add('hidden');
+    document.getElementById('popup-success')?.classList.remove('hidden');
+  });
+</script>

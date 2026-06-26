@@ -18,7 +18,8 @@ const {
 // Container real do Moisés como padrão (sobrescrevível por env PUBLIC_GTM_ID no Vercel)
 const GTM_ID = import.meta.env.PUBLIC_GTM_ID || 'GTM-P4P7R35C';
 const FB_PIXEL_ID = import.meta.env.PUBLIC_FB_PIXEL_ID || '';
-const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
+// GA4 real do projeto (default; sobrescrevível por env PUBLIC_GA_ID)
+const GA_ID = import.meta.env.PUBLIC_GA_ID || 'G-C2HZX6SQ9Q';
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -65,8 +66,8 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
       <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`} />
     )}
 
-    <!-- 2b) GA4 direto (fallback caso não use GTM) -->
-    {GA_ID && !GTM_ID && (
+    <!-- 2b) GA4 direto (gtag.js). Se você configurar a tag GA4 DENTRO do GTM, remova este bloco pra não duplicar page_view. -->
+    {GA_ID && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
         <script is:inline set:html={`window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', '${GA_ID}');`} />
