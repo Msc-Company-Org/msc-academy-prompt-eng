@@ -13,9 +13,16 @@ const provas = [
 const arsenal = [
   ['N1', 'Templates prontos (por profissão)', ['Prompts no formato P.R.O.© pra copiar, colar e adaptar.', 'Vendas, atendimento, conteúdo, escritório, freela, estudo.', 'Você para de começar do zero toda vez.']],
   ['N2', 'Fluxos & Hooks', ['Encadeamentos prontos e hooks que disparam ações repetíveis.', 'O prompt deixa de ser pergunta solta.', 'Vira processo que trabalha por você.']],
-  ['N3', 'Skills & Superpowers', ['Os assets funcionais e instaláveis que eu rodo em produção.', 'Capacidade de verdade, não texto pra decorar.', 'É o pulo do amador pro power-user.']],
+  ['N3', 'Skills & Superpowers', ['Os assets funcionais e instaláveis, testados no uso real.', 'Capacidade de verdade, não texto pra decorar.', 'É o pulo do amador pro power-user.']],
   ['+', 'Método P.R.O.© — o guia', ['Como instalar, adaptar e fabricar os SEUS assets.', 'É o que te deixa independente do pack pronto.', 'E o que separa este arsenal de uma pasta que ninguém abre.']],
 ];
+
+const arsenalIcons: Record<string, string> = {
+  'N1': '<rect x="3" y="4" width="7.5" height="6" rx="1.2"/><rect x="13.5" y="4" width="7.5" height="6" rx="1.2"/><rect x="3" y="14" width="7.5" height="6" rx="1.2"/><rect x="13.5" y="14" width="7.5" height="6" rx="1.2"/>',
+  'N2': '<circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.7 7.6l3.2 8.3M16.3 7.6l-3.2 8.3"/>',
+  'N3': '<path d="M13 2.5 4.8 13.4H11l-1 8.1L19.2 9.9H13z"/>',
+  '+': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><path d="M12 3.5v3.2M12 17.3v3.2M3.5 12h3.2M17.3 12h3.2"/>',
+};
 
 const faq = [
   ['Preciso saber programar?', ['Não, nada.', 'Os templates e fluxos são copiar, colar e adaptar.', 'As skills e superpowers vêm com passo a passo.', 'Se você digita uma mensagem, você usa.']],
@@ -23,10 +30,12 @@ const faq = [
   ['Quanto tempo pra usar?', ['Hoje.', 'Você baixa o arsenal, escolhe o asset da sua tarefa e aplica no mesmo dia.', 'O Método é pra quando quiser criar os seus.']],
   ['Não vai ficar desatualizado, com a IA mudando toda hora?', ['Por isso o arsenal vem com o Método P.R.O.©.', 'Você não decora asset que expira.', 'Aprende a adaptar e refazer qualquer um quando o modelo muda.', 'E os novos assets entram de graça, pra sempre.']],
   ['Por que um arsenal e não um pack qualquer de prompts?', ['Pack solto você baixa e nunca usa.', 'E morre quando o modelo atualiza.', 'Aqui os assets vêm organizados por nível e testados em produção por mim.', 'Pack é commodity; arsenal com método é ferramenta.']],
-  ['Já tá todo mundo falando de IA. Por que comprar com você?', ['Está saturado de gente falando.', 'Eu não falo — eu opero.', 'Estes são os assets que rodam nos meus agentes e modelos sob medida, no ar agora.', 'Você instala o que já é testado, não teoria.']],
+  ['Por que comprar este arsenal?', ['Está saturado de gente falando de IA.', 'Aqui você não compra papo — compra a ferramenta.', 'Cada asset vem com antes-e-depois: você vê o resultado antes de instalar.', 'É testado no uso real, não teoria de blog.']],
   ['Como recebo o acesso e o pagamento?', ['Pela Kiwify, no Pix ou cartão em até 12x.', 'Confirmou, libera na hora.', 'É vitalício, com os novos assets incluídos.']],
   ['E se eu não gostar?', ['Garantia de 7 dias, incondicional.', 'Pediu, devolvo 100%, sem perguntar.', 'O risco é meu.']],
-  ['R$97 é o preço pra sempre?', ['Não.', 'É o preço de entrada.', 'Conforme eu adiciono assets, ele sobe pra quem entrar depois.', 'Quem entra agora trava o valor e recebe tudo que vier.']],
+  ['R$97 é o preço pra sempre?', ['Não.', 'É o preço do Lote 1 de fundador.', 'A cada lote de assets novos, o preço sobe pro próximo (R$127, depois R$157).', 'Quem entra agora trava o valor de hoje e recebe tudo que vier — pra sempre.']],
+  ['Esse preço sobe mesmo ou é só pressão?', ['Sobe de verdade, e por uma razão honesta: a biblioteca cresce toda semana.', 'Quanto mais asset entra, mais o arsenal vale — então o próximo lote custa mais.', 'Quem comprou no lote anterior nunca paga a diferença.']],
+  ['Novos assets toda semana é promessa de marketing?', ['É compromisso. A biblioteca recebe assets novos toda semana.', 'Entram de graça pra quem já é fundador.', 'O arsenal só cresce.']],
   ['Isso me ensina a ganhar dinheiro com IA?', ['Vou ser honesto.', 'Te entrega ferramentas e a habilidade de usá-las.', 'Essa é a base de coisas que dão dinheiro, como freela ou construir agentes.', 'Mas não vendo promessa de renda — vendo a ferramenta e a competência que vêm antes dela.']],
 ];
 
@@ -250,7 +259,12 @@ const faqSchema = {
         <div class="mt-9 divide-y divide-ink/12">
           {arsenal.map(([n, t, lines]) => (
             <div class="flex gap-5 py-6">
-              <span class="section-no text-3xl sm:text-4xl">{n}</span>
+              <div class="flex shrink-0 flex-col items-center gap-1.5">
+                <span class="grid h-12 w-12 place-items-center rounded-xl border border-ink/10 bg-citrus/30 shadow-sm">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 text-ink" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={arsenalIcons[n]} />
+                </span>
+                <span class="text-xs font-semibold tracking-wide text-sage">{n}</span>
+              </div>
               <div>
                 <h3 class="font-display text-lg font-semibold text-ink">{t}</h3>
                 <div class="mt-2 space-y-1.5 text-ink/75">{lines.map((l) => <p>{l}</p>)}</div>
@@ -258,6 +272,7 @@ const faqSchema = {
             </div>
           ))}
         </div>
+        <p class="mt-6 rounded-xl border border-ink/10 bg-sand p-4 text-[15px] text-ink/80"><strong class="text-ink">A biblioteca cresce toda semana.</strong> Todo asset novo entra de graça pra quem já comprou. Você trava o preço de hoje e recebe tudo que vier.</p>
       </div>
     </div>
   </section>
@@ -334,7 +349,8 @@ const faqSchema = {
     <div class="shell section">
       <div class="mx-auto max-w-2xl">
         <p class="eyebrow mb-3 text-center">08 · A oferta</p>
-        <h2 class="text-center font-display text-2xl font-bold sm:text-3xl">Soma tudo e o número passa de R$900. Hoje você leva por <span class="text-indigo">R$97</span>.</h2>
+        <h2 class="text-center font-display text-2xl font-bold sm:text-3xl">Soma tudo e passa de R$900. No lote de fundador você leva por <span class="hl">R$97</span>.</h2>
+        <p class="mx-auto mt-3 max-w-xl text-center text-ink/75">Este é o Lote 1. No próximo, o preço sobe pra R$127 — e quem entrou antes não paga a diferença.</p>
         <div class="mt-8 overflow-hidden rounded-2xl border border-ink/12 bg-sand-dark">
           <table class="w-full text-left text-[15px]">
             <tbody class="divide-y divide-ink/10">
@@ -352,12 +368,13 @@ const faqSchema = {
           <p class="text-ink/60">Valor total <span class="line-through">R$955</span></p>
           <p class="mt-1 text-ink/80">Você paga hoje, à vista ou em até 12x:</p>
           <p class="mt-2 font-display text-6xl font-extrabold text-ink">R$97</p>
-          <p class="mt-1 text-sm text-ink/55">É preço de entrada. Sobe a cada novo lote de assets.</p>
+          <p class="mt-1 text-sm text-ink/55">Lote 1 de fundador. Sobe pra R$127 no próximo lote.</p>
           <div class="mt-7">
-            <button data-checkout class="btn-amber">QUERO TUDO ISSO POR R$97 <span class="arrow">→</span></button>
+            <button data-checkout class="btn-amber">QUERO O LOTE DE FUNDADOR — R$97 <span class="arrow">→</span></button>
             <p class={micro}>Acesso imediato · garantia de 7 dias · Pix ou 12x</p>
           </div>
         </div>
+        <p class="mx-auto mt-5 max-w-xl rounded-xl bg-sand-dark p-4 text-center text-sm text-ink/75">🎁 Os 3 bônus + o <strong class="text-ink">grupo de fundadores</strong> são exclusivos de quem entra no lote de fundador. Quando ele fechar, saem da oferta.</p>
         <div class="prose-flow mx-auto mt-5 rounded-xl border border-dashed border-ink/15 p-4 text-sm">
           <p>💡 No checkout você ainda pode adicionar o <strong class="text-ink">Arsenal Pro©</strong>.</p>
           <p>São 30 superpowers avançados + fluxos de agente prontos. Por só <strong class="text-ink">+R$47</strong>.</p>
@@ -415,8 +432,8 @@ const faqSchema = {
           <li class="text-sage">✓ <span class="text-ink/85">Garantia de 7 dias · R$97 à vista ou 12x</span></li>
         </ul>
         <div class="prose-flow mx-auto mt-7 text-center">
-          <p>Você acabou de ver os meus sistemas funcionando.</p>
-          <p>Eles rodam neste arsenal. E agora ele pode ser seu.</p>
+          <p>Você acabou de ver os assets funcionando — o antes e o depois.</p>
+          <p>É isso que entra no seu arsenal hoje.</p>
           <p>A IA não vai te esperar montar o seu do zero. Seu concorrente também não.</p>
         </div>
         <div class="mt-8">
@@ -426,9 +443,9 @@ const faqSchema = {
         <div class="prose-flow mx-auto mt-9 text-left font-display text-[15px] italic text-ink/70">
           <p>P.S. — Se você chegou até aqui, já sabe de uma coisa.</p>
           <p>O problema nunca foi a IA. É começar tudo do zero, toda vez.</p>
-          <p>Por menos que um almoço, você instala o arsenal que eu rodo em produção. Com 7 dias de garantia total.</p>
-          <p>E tem mais: este R$97 é a porta do meu ecossistema. Depois do arsenal vem construir agentes, depois treinar modelos.</p>
-          <p>Você entra com ferramenta na mão, com quem faz de verdade. E tem pra onde subir.</p>
+          <p>Por menos que um almoço, você instala um arsenal pronto, testado, com 7 dias de garantia total.</p>
+          <p>E ele só cresce: assets novos toda semana, de graça, com o preço travado no de hoje.</p>
+          <p>Entrar no Lote 1 é o melhor preço que este arsenal vai ter.</p>
         </div>
       </div>
     </div>
