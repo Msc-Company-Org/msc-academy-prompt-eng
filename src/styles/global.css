@@ -144,6 +144,22 @@ h1, h2, h3, .font-display { font-family: var(--font-display); text-wrap: balance
   box-shadow: 0 28px 56px rgba(0,0,0,.28);
 }
 
+/* card ESPECIAL "iluminado" (oferta, prova) — glow citrus no topo + brilho interno */
+.card-lit {
+  position: relative; border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--color-citrus) 45%, transparent);
+  background:
+    radial-gradient(130% 80% at 50% -12%, color-mix(in srgb, var(--color-citrus) 20%, transparent), transparent 62%),
+    color-mix(in srgb, var(--color-sand-dark) 55%, #fff);
+  box-shadow: 0 1px 2px rgba(22,51,0,.06), 0 20px 44px rgba(22,51,0,.11), inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+/* ---- color-blocking de seção (deixa claro a troca de seção) ---- */
+.sec-sage   { background: color-mix(in srgb, var(--color-sage) 11%, var(--color-sand)); }
+.sec-citrus { background: color-mix(in srgb, var(--color-citrus) 17%, var(--color-sand)); }
+.sec-coral  { background: color-mix(in srgb, var(--color-amber) 8%, var(--color-sand)); }
+.sec-line   { border-block: 1px solid color-mix(in srgb, var(--color-ink) 13%, transparent); }
+
 /* ---- CTA Âmbar ---- */
 .btn-amber {
   position: relative; overflow: hidden;

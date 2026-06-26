@@ -14,10 +14,18 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <text x="1120" y="551" font-family="Arial, sans-serif" font-size="26" fill="#1B1714" opacity="0.55" text-anchor="end">arsenal.msc-academy.com.br</text>
 </svg>`;
 
+const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#163300"/>
+  <path d="M7.6 24.2 L16 7.2 L24.4 24.2" fill="none" stroke="#FAF7F0" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="10.8" y="17.2" width="10.4" height="2.7" rx="1.35" fill="#9FE870"/>
+  <circle cx="16" cy="7.2" r="2.5" fill="#FF4F40"/>
+</svg>`;
+
 try {
   const sharpMod = (await import('sharp')).default;
   await sharpMod(Buffer.from(svg)).jpeg({ quality: 88 }).toFile('public/og.jpg');
-  console.log('public/og.jpg gerado (1200x630)');
+  await sharpMod(Buffer.from(iconSvg)).resize(180, 180).png().toFile('public/apple-touch-icon.png');
+  console.log('public/og.jpg + apple-touch-icon.png gerados');
 } catch (e) {
   // sharp pode estar bloqueado no ambiente local (política de Temp); no build da Vercel funciona.
   console.warn('[gen-og] sharp indisponível aqui, pulando og.jpg local:', e.message);
