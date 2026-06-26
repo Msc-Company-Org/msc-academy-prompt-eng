@@ -15,4 +15,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://academy.msccompany.com.br/sitemap-index.xml
+Sitemap: https://arsenal.msc-academy.com.br/sitemap-index.xml

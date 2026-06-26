@@ -80,9 +80,10 @@ const ITEM = { item_id: 'curso-prompt-97', item_name: 'Prompt Profissional', pri
 /** Monta a URL do checkout Kiwify carimbando atribuição (gclid/fbclid/utm) e dispara begin_checkout */
 export function goToCheckout(opts: { email?: string } = {}): void {
   const base = (import.meta.env.PUBLIC_KIWIFY_CHECKOUT_URL as string) || '#';
+  // sem checkout real ainda → NÃO dispara begin_checkout (evita carrinho fantasma no funil)
+  if (base === '#') { return; }
   const a = getAttribution();
   track('begin_checkout', { value: 97, currency: 'BRL', event_id: uuid(), items: [ITEM] });
-  if (base === '#') { return; } // sem link configurado ainda
   const qs = new URLSearchParams();
   if (a.utm_source) qs.set('utm_source', a.utm_source);
   if (a.utm_medium) qs.set('utm_medium', a.utm_medium);

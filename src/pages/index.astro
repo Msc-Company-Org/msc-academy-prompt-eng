@@ -29,8 +29,19 @@ const faq = [
   ['R$97 é o preço pra sempre?', ['Não.', 'É o preço de entrada.', 'Conforme eu adiciono assets, ele sobe pra quem entrar depois.', 'Quem entra agora trava o valor e recebe tudo que vier.']],
   ['Isso me ensina a ganhar dinheiro com IA?', ['Vou ser honesto.', 'Te entrega ferramentas e a habilidade de usá-las.', 'Essa é a base de coisas que dão dinheiro, como freela ou construir agentes.', 'Mas não vendo promessa de renda — vendo a ferramenta e a competência que vêm antes dela.']],
 ];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, lines]) => ({
+    '@type': 'Question',
+    name: q as string,
+    acceptedAnswer: { '@type': 'Answer', text: (lines as string[]).join(' ') },
+  })),
+};
 ---
-<Base>
+<Base product>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
   <div class="fixed top-0 left-0 z-50 h-1 bg-indigo/90" id="read-progress" style="width:0%"></div>
 
   <!-- HEADER -->

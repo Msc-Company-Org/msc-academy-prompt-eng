@@ -6,14 +6,17 @@ export interface Props {
   description?: string;
   canonical?: string;
   noindex?: boolean;
+  product?: boolean; // renderiza o schema Product (só na carta de vendas)
 }
 
 const {
   title = 'Arsenal de IA — templates, skills e superpowers que eu rodo em produção | MSC Academy',
   description = 'O arsenal de IA que eu uso em produção: templates, fluxos, hooks e superpowers, do básico ao avançado, + o Método P.R.O.© pra adaptar tudo. R$97, acesso vitalício, garantia de 7 dias.',
-  canonical = 'https://academy.msccompany.com.br/',
+  canonical = 'https://arsenal.msc-academy.com.br/',
   noindex = false,
+  product = false,
 } = Astro.props;
+const OG_IMAGE = 'https://arsenal.msc-academy.com.br/og.jpg';
 
 // Container real do Moisés como padrão (sobrescrevível por env PUBLIC_GTM_ID no Vercel)
 const GTM_ID = import.meta.env.PUBLIC_GTM_ID || 'GTM-P4P7R35C';
@@ -37,8 +40,14 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || 'G-C2HZX6SQ9Q';
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="/og.jpg" />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Arsenal de IA — 7 peças grátis" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
 
     <!-- Fonts: Fraunces (display serifado, editorial) + Inter (texto/UI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,17 +88,20 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || 'G-C2HZX6SQ9Q';
       <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${FB_PIXEL_ID}');fbq('track','PageView');`} />
     )}
 
-    <!-- Schema.org: Product + FAQ (AEO — para ser citado por IA) -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: 'Arsenal de IA — MSC Academy',
-      description: 'Biblioteca de assets de IA prontos (templates, fluxos, hooks e superpowers) testados em produção, organizados do básico ao avançado, com o Método P.R.O.© para adaptar e criar os seus. Sem programar.',
-      brand: { '@type': 'Organization', name: 'MSC Academy', sameAs: 'https://msccompany.com.br' },
-      category: 'Digital product / AI toolkit',
-      inLanguage: 'pt-BR',
-      offers: { '@type': 'Offer', price: '97.00', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', url: 'https://academy.msccompany.com.br/' },
-    })} />
+    <!-- Schema.org: Product — SÓ na carta de vendas (não na landing grátis) -->
+    {product && (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: 'Arsenal de IA — MSC Academy',
+        description: 'Biblioteca de assets de IA prontos (templates, fluxos, hooks e superpowers) testados em produção, organizados do básico ao avançado, com o Método P.R.O.© para adaptar e criar os seus. Sem programar.',
+        brand: { '@type': 'Organization', name: 'MSC Academy', sameAs: 'https://msccompany.com.br' },
+        category: 'Digital product / AI toolkit',
+        inLanguage: 'pt-BR',
+        offers: { '@type': 'Offer', price: '97.00', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', url: 'https://arsenal.msc-academy.com.br/' },
+      })} />
+    )}
+    <slot name="head" />
   </head>
   <body class="bg-sand text-ink antialiased">
     {GTM_ID && (
